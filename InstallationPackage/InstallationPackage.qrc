@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="InstallationPackage">
-    </qresource>
+  <qresource prefix="InstallationPackage">
+    <file>Resource/bg.jpg</file>
+  </qresource>
 </RCC>
