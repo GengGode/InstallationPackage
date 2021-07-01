@@ -1,4 +1,7 @@
 #pragma once
+#pragma execution_character_set("utf-8")
+
+#include <atlconv.h>
 #include <Windows.h>
 #include <QDir>
 #include <QLabel>
@@ -34,7 +37,10 @@ private:
 	QtWidgetsMessageBox2 *WidgetBox2 = nullptr;
 private:
 	QString SourcePath;
-	QString InstallPath = "E:/tmp/123";
+	QString SourceName= "/source.7z";
+	QString LinkerName = "天理";
+	QString ExportName = "/天理系统.exe";
+	QString InstallPath = "C:/Program Files/天理";
 	QProcess *unZip_7z = nullptr;
 
 private:
@@ -53,6 +59,8 @@ private:
 	void HideMask();
 
 	bool CheckInstallPath(QString path);
+
+	void CreateLinke();
 private slots:
 	void Mini();
 	void Exit();

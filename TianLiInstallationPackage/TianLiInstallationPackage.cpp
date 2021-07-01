@@ -70,7 +70,7 @@ bool TianLiInstallationPackage::isCoundUn7z()
 		return false;
 	}
 
-	SourcePath = QApplication::applicationDirPath() + "/source.7z";
+	SourcePath = QApplication::applicationDirPath() + SourceName;
 	if (QDir().exists(SourcePath) == false)
 	{
 		ShowMessageBox("资源缺失");//资源缺失
@@ -111,6 +111,7 @@ void TianLiInstallationPackage::ShowMask()
 	}
 	else
 	{
+		MainMaskLabel->setGeometry(QRect(0, 0, this->width(), this->height()));
 		MainMaskLabel->show();
 	}
 }
@@ -159,6 +160,11 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 		ShowMessageLabel("无效路径");
 	}
 	return isValidPath;
+}
+
+void TianLiInstallationPackage::CreateLinke()
+{
+	QFile::link(InstallPath+ ExportName, QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).append("/").append(LinkerName+".lnk"));
 }
 
 void TianLiInstallationPackage::Mini()
@@ -355,7 +361,7 @@ void TianLiInstallationPackage::PathChanged(QString path)
 
 void TianLiInstallationPackage::Start()
 {
-	QString command = InstallPath + "/天理系统.exe";
+	QString command = InstallPath + ExportName;
 	TCHAR szCmdLine[1024] = {};
 
 	command.toWCharArray(szCmdLine);
@@ -387,6 +393,7 @@ void TianLiInstallationPackage::unZip_ReadStandardOutput()
 
 void TianLiInstallationPackage::unZip_finished(int exitCode)
 {
+	CreateLinke();
 	if (exitCode == QProcess::NormalExit)
 	{
 		isInstallFinish = true;
