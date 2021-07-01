@@ -7,20 +7,19 @@
 #include <QMouseEvent>
 #include <QPropertyAnimation>
 #include <QtWidgets/QMainWindow>
-#include "ui_InstallationPackage.h"
+#include "ui_TianLiInstallationPackage.h"
 #include "QtWidgetsMessageBox.h"
 #include "QtWidgetsMessageBox2.h"
 
-class InstallationPackage : public QMainWindow
+class TianLiInstallationPackage : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    InstallationPackage(QWidget *parent = Q_NULLPTR);
+	TianLiInstallationPackage(QWidget *parent = Q_NULLPTR);
 
 private:
-    Ui::InstallationPackageClass ui;
-
+	Ui::TianLiInstallationPackageClass ui;
 
 private:
 	bool isValidPath = false;
@@ -34,7 +33,7 @@ private:
 	QtWidgetsMessageBox2 *WidgetBox2 = nullptr;
 private:
 	QString SourcePath;
-	QString InstallPath="E:/tmp/123";
+	QString InstallPath = "E:/tmp/123";
 	QProcess *unZip_7z = nullptr;
 
 private:

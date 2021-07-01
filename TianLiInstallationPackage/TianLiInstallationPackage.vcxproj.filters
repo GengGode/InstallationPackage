@@ -23,33 +23,18 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="InstallationPackage.qrc">
+    <QtRcc Include="TianLiInstallationPackage.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="InstallationPackage.ui">
+    <QtUic Include="TianLiInstallationPackage.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="InstallationPackage.h">
+    <QtMoc Include="TianLiInstallationPackage.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="InstallationPackage.cpp">
+    <ClCompile Include="TianLiInstallationPackage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <AppxManifest Include="Package.appxmanifest">
-      <Filter>Resource Files</Filter>
-    </AppxManifest>
-    <Image Include="assets/logo_store.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets/logo_620x300.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets/logo_150x150.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets/logo_44x44.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <QtRcc Include="QtWidgetsMessageBox.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>

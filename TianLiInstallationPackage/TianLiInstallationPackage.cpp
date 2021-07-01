@@ -1,10 +1,10 @@
-#include "InstallationPackage.h"
+#include "TianLiInstallationPackage.h"
 #pragma execution_character_set("utf-8")
 
-InstallationPackage::InstallationPackage(QWidget *parent)
-    : QMainWindow(parent)
+TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
+	: QMainWindow(parent)
 {
-    ui.setupUi(this);
+	ui.setupUi(this);
 	this->setWindowFlags(Qt::FramelessWindowHint);
 	ui.lineEdit_Path->setText(InstallPath);
 
@@ -26,14 +26,14 @@ InstallationPackage::InstallationPackage(QWidget *parent)
 	connect(ui.pushButton_Install, SIGNAL(clicked()), this, SLOT(Install()));
 
 	connect(ui.pushButton_Custom, SIGNAL(clicked()), this, SLOT(CustomSetChange()));
-	
+
 	connect(ui.pushButton_ChangePath, SIGNAL(clicked()), this, SLOT(ChangePathBox()));
 	connect(ui.lineEdit_Path, SIGNAL(textChanged(QString)), this, SLOT(PathChanged(QString)));
 
 	connect(ui.end_pushButton_Start, SIGNAL(clicked()), this, SLOT(Start()));
 }
 
-void InstallationPackage::mousePressEvent(QMouseEvent *event)
+void TianLiInstallationPackage::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton &&
 		ui.TitleLabelRect->frameRect().contains(event->globalPos() - this->frameGeometry().topLeft())) {
@@ -43,14 +43,14 @@ void InstallationPackage::mousePressEvent(QMouseEvent *event)
 	event->ignore();
 }
 
-void InstallationPackage::mouseReleaseEvent(QMouseEvent *event)
+void TianLiInstallationPackage::mouseReleaseEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton) {
 		leftBtnClk = false;
 	}
 	event->ignore();
 }
-void InstallationPackage::mouseMoveEvent(QMouseEvent *event)
+void TianLiInstallationPackage::mouseMoveEvent(QMouseEvent *event)
 {
 	if (leftBtnClk) {
 		m_Move = event->globalPos();
@@ -60,7 +60,7 @@ void InstallationPackage::mouseMoveEvent(QMouseEvent *event)
 	event->ignore();
 }
 
-bool InstallationPackage::isCoundUn7z()
+bool TianLiInstallationPackage::isCoundUn7z()
 {
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
 	if (QDir().exists(exe) == false)
@@ -78,7 +78,7 @@ bool InstallationPackage::isCoundUn7z()
 	return true;
 }
 
-bool InstallationPackage::un7z()
+bool TianLiInstallationPackage::un7z()
 {
 	unZip_7z = new QProcess(this);
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
@@ -90,7 +90,7 @@ bool InstallationPackage::un7z()
 
 	connect(unZip_7z, SIGNAL(readyReadStandardOutput()), this, SLOT(unZip_ReadStandardOutput()));
 	connect(unZip_7z, SIGNAL(finished(int)), this, SLOT(unZip_finished(int)));
-	
+
 	QStringList args;
 	args << "x" << SourcePath << "-o" + InstallPath << "-aoa" << "-bd";
 	unZip_7z->start(exe, args);
@@ -98,7 +98,7 @@ bool InstallationPackage::un7z()
 	return true;
 }
 
-void InstallationPackage::ShowMask()
+void TianLiInstallationPackage::ShowMask()
 {
 	if (MainMaskLabel == nullptr)
 	{
@@ -114,7 +114,7 @@ void InstallationPackage::ShowMask()
 	}
 }
 
-void InstallationPackage::HideMask()
+void TianLiInstallationPackage::HideMask()
 {
 	if (MainMaskLabel != nullptr)
 	{
@@ -122,12 +122,12 @@ void InstallationPackage::HideMask()
 	}
 }
 
-void InstallationPackage::Mini()
+void TianLiInstallationPackage::Mini()
 {
 	this->showMinimized();
 }
 
-void InstallationPackage::Exit()
+void TianLiInstallationPackage::Exit()
 {
 	if (isInstallFinish)
 	{
@@ -137,7 +137,7 @@ void InstallationPackage::Exit()
 	connect(WidgetBox2, SIGNAL(isOK(bool)), this, SLOT(isClose(bool)));
 }
 
-void InstallationPackage::isClose(bool isClose)
+void TianLiInstallationPackage::isClose(bool isClose)
 {
 	if (isClose)
 	{
@@ -145,7 +145,7 @@ void InstallationPackage::isClose(bool isClose)
 	}
 }
 
-void InstallationPackage::ShowMessageLabel(QString text)
+void TianLiInstallationPackage::ShowMessageLabel(QString text)
 {
 	if (ErrorMessageLabel == nullptr)
 	{
@@ -164,7 +164,7 @@ void InstallationPackage::ShowMessageLabel(QString text)
 	}
 }
 
-void InstallationPackage::HideMessageLabel()
+void TianLiInstallationPackage::HideMessageLabel()
 {
 	if (ErrorMessageLabel != nullptr)
 	{
@@ -172,7 +172,7 @@ void InstallationPackage::HideMessageLabel()
 	}
 }
 
-void InstallationPackage::ShowMessageBox(QString text)
+void TianLiInstallationPackage::ShowMessageBox(QString text)
 {
 	this->ShowMask();
 	if (WidgetBox == nullptr)
@@ -193,7 +193,7 @@ void InstallationPackage::ShowMessageBox(QString text)
 	}
 }
 
-void InstallationPackage::ShowMessageBox2(QString text)
+void TianLiInstallationPackage::ShowMessageBox2(QString text)
 {
 	this->ShowMask();
 	if (WidgetBox2 == nullptr)
@@ -203,7 +203,7 @@ void InstallationPackage::ShowMessageBox2(QString text)
 		WidgetBox2->setText(text);
 
 		WidgetBox2->setWindowModality(Qt::ApplicationModal);
-		WidgetBox2->move(this->x() + (int)((this->width() - WidgetBox2->width()) /2), this->y() + (int)((this->height() - WidgetBox2->height()) / 2));
+		WidgetBox2->move(this->x() + (int)((this->width() - WidgetBox2->width()) / 2), this->y() + (int)((this->height() - WidgetBox2->height()) / 2));
 		WidgetBox2->show();
 	}
 	else
@@ -214,7 +214,7 @@ void InstallationPackage::ShowMessageBox2(QString text)
 	}
 }
 
-void InstallationPackage::Install()
+void TianLiInstallationPackage::Install()
 {
 	if (ui.radioButton_IsAgree->isChecked() == true)
 	{
@@ -239,7 +239,7 @@ void InstallationPackage::Install()
 			ui.pushButton_ShowLisence->hide();
 			ui.pushButton_Custom->hide();
 
-			ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/InstallationPackage/Resource/bg2.png)}");
+			ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/TianLiInstallationPackage/Resource/bg2.png)}");
 			//显示安装中UI
 			ui.ins_label->show();
 			ui.ins_progressBar->show();
@@ -255,7 +255,7 @@ void InstallationPackage::Install()
 	}
 }
 
-void InstallationPackage::CustomSetChange()
+void TianLiInstallationPackage::CustomSetChange()
 {
 	if (isDownBar)
 	{
@@ -288,7 +288,7 @@ void InstallationPackage::CustomSetChange()
 	//pWidgetProcessUp->start();
 }
 
-void InstallationPackage::ChangePathBox()
+void TianLiInstallationPackage::ChangePathBox()
 {
 	ShowMask();
 	QString Path = QFileDialog::getExistingDirectory(this, "选择安装目录", InstallPath, QFileDialog::ShowDirsOnly);
@@ -299,14 +299,14 @@ void InstallationPackage::ChangePathBox()
 	HideMask();
 }
 
-void InstallationPackage::PathChanged(QString path)
+void TianLiInstallationPackage::PathChanged(QString path)
 {
-	QString driver = path.section(":/", 0,0)+":/";
+	QString driver = path.section(":/", 0, 0) + ":/";
 	LPCWSTR lpcwstrDriver = (LPCWSTR)driver.utf16();
 	ULARGE_INTEGER liFreeBytesAvailable, liTotalBytes, liTotalFreeBytes;
 	if (GetDiskFreeSpaceEx(lpcwstrDriver, &liFreeBytesAvailable, &liTotalBytes, &liTotalFreeBytes))
 	{
-		quint64 size=(quint64)liTotalFreeBytes.QuadPart / 1024 / 1024;
+		quint64 size = (quint64)liTotalFreeBytes.QuadPart / 1024 / 1024;
 		if (size < 300)
 		{
 			//kongjianbuzu
@@ -314,7 +314,7 @@ void InstallationPackage::PathChanged(QString path)
 			ShowMessageLabel("空间不足");
 			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "MB");
 		}
-		else if(size<1024)
+		else if (size < 1024)
 		{
 			isValidPath = true;
 			HideMessageLabel();
@@ -336,9 +336,9 @@ void InstallationPackage::PathChanged(QString path)
 	}
 }
 
-void InstallationPackage::Start()
+void TianLiInstallationPackage::Start()
 {
-	QString command = InstallPath+"/天理系统.exe";
+	QString command = InstallPath + "/天理系统.exe";
 	TCHAR szCmdLine[1024] = {};
 
 	command.toWCharArray(szCmdLine);
@@ -353,22 +353,22 @@ void InstallationPackage::Start()
 
 	if (res != true)
 	{
-		int k=GetLastError();
+		int k = GetLastError();
 	}
 	this->close();
 }
 
-void InstallationPackage::unZip_ReadStandardOutput()
+void TianLiInstallationPackage::unZip_ReadStandardOutput()
 {
 	QByteArray qbt = unZip_7z->readAll();
 	QString msg = QString::fromLocal8Bit(qbt);
 
-	msg=msg.section("%", 0);
-	int unzipBarValue=msg.toInt();
+	msg = msg.section("%", 0);
+	int unzipBarValue = msg.toInt();
 	ui.ins_progressBar->setValue(unzipBarValue);
 }
 
-void InstallationPackage::unZip_finished(int exitCode)
+void TianLiInstallationPackage::unZip_finished(int exitCode)
 {
 	if (exitCode == QProcess::NormalExit)
 	{
@@ -380,7 +380,7 @@ void InstallationPackage::unZip_finished(int exitCode)
 		//显示安装结束UI
 		ui.end_pushButton_Start->show();
 		ui.end_radioButton->show();
-		ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/InstallationPackage/Resource/bg.png)}");
+		ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/TianLiInstallationPackage/Resource/bg.png)}");
 
 	}
 	else
@@ -394,17 +394,17 @@ void InstallationPackage::unZip_finished(int exitCode)
 		//显示安装结束UI
 		ui.end_pushButton_Start->show();
 		ui.end_radioButton->show();
-		ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/InstallationPackage/Resource/bg.png)}");
+		ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/TianLiInstallationPackage/Resource/bg.png)}");
 
 	}
 }
 
-void InstallationPackage::ReceiveCloseSelfSignalFromMainWidgets()
+void TianLiInstallationPackage::ReceiveCloseSelfSignalFromMainWidgets()
 {
 	this->HideMask();
 }
 
-void InstallationPackage::ReceiveCloseSelfSignalFromMainWidgets(bool isOK)
+void TianLiInstallationPackage::ReceiveCloseSelfSignalFromMainWidgets(bool isOK)
 {
 
 	this->HideMask();

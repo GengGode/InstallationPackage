@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="InstallationPackage">
+    <qresource prefix="TianLiInstallationPackage">
     <file>Resource/bg2.png</file>
     <file>Resource/bg.png</file>
   </qresource>

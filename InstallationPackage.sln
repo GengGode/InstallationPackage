@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1525
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InstallationPackage", "InstallationPackage\InstallationPackage.vcxproj", "{C49B3C3C-1AF6-4589-986E-AD58648CD8CD}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TianLiInstallationPackage", "TianLiInstallationPackage\TianLiInstallationPackage.vcxproj", "{FBAB88CB-CEE0-4DBA-989A-4F93D868997E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -16,6 +18,10 @@ Global
 		{C49B3C3C-1AF6-4589-986E-AD58648CD8CD}.Release|x64.ActiveCfg = Release|x64
 		{C49B3C3C-1AF6-4589-986E-AD58648CD8CD}.Release|x64.Build.0 = Release|x64
 		{C49B3C3C-1AF6-4589-986E-AD58648CD8CD}.Release|x64.Deploy.0 = Release|x64
+		{FBAB88CB-CEE0-4DBA-989A-4F93D868997E}.Debug|x64.ActiveCfg = Debug|x64
+		{FBAB88CB-CEE0-4DBA-989A-4F93D868997E}.Debug|x64.Build.0 = Debug|x64
+		{FBAB88CB-CEE0-4DBA-989A-4F93D868997E}.Release|x64.ActiveCfg = Release|x64
+		{FBAB88CB-CEE0-4DBA-989A-4F93D868997E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

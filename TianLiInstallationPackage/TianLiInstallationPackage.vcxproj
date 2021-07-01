@@ -11,16 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C49B3C3C-1AF6-4589-986E-AD58648CD8CD}</ProjectGuid>
+    <ProjectGuid>{FBAB88CB-CEE0-4DBA-989A-4F93D868997E}</ProjectGuid>
     <Keyword>QtVS_v304</Keyword>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
-    <ApplicationType Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Windows Store</ApplicationType>
     <WindowsTargetPlatformVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.17763.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0.17763.0</WindowsTargetPlatformMinVersion>
-    <MinimumVisualStudioVersion Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">15.00</MinimumVisualStudioVersion>
-    <ApplicationTypeRevision Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">10.0</ApplicationTypeRevision>
-    <DefaultLanguage Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">en</DefaultLanguage>
-    <AppContainerApplication Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">true</AppContainerApplication>
     <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -31,9 +25,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v141</PlatformToolset>
-    <GenerateManifest>false</GenerateManifest>
-    <EmbedManifest>false</EmbedManifest>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
@@ -48,9 +39,6 @@
     <QtInstall>msvc2017_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
-    <QtDeploy>true</QtDeploy>
-    <QtDeployToProjectDir>true</QtDeployToProjectDir>
-    <QtDeployVsContent>true</QtDeployVsContent>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -70,16 +58,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Link>
-      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Link>
-      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -100,45 +78,23 @@
       <DebugInformationFormat>None</DebugInformationFormat>
       <Optimization>MaxSpeed</Optimization>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <CompileAsWinRT>false</CompileAsWinRT>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalOptions>/APPCONTAINER %(AdditionalOptions)</AdditionalOptions>
-      <GenerateManifest>false</GenerateManifest>
-      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
-      <TargetMachine>MachineX64</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="QtWidgetsMessageBox.cpp" />
-    <ClCompile Include="QtWidgetsMessageBox2.cpp" />
-    <QtRcc Include="InstallationPackage.qrc" />
     <QtRcc Include="QtWidgetsMessageBox.qrc" />
-    <QtUic Include="InstallationPackage.ui" />
-    <QtMoc Include="InstallationPackage.h" />
-    <ClCompile Include="InstallationPackage.cpp" />
-    <ClCompile Include="main.cpp" />
-    <AppxManifest Include="Package.appxmanifest">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">true</ExcludedFromBuild>
-    </AppxManifest>
-    <Image Include="assets/logo_store.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">true</ExcludedFromBuild>
-    </Image>
-    <Image Include="assets/logo_620x300.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">true</ExcludedFromBuild>
-    </Image>
-    <Image Include="assets/logo_150x150.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">true</ExcludedFromBuild>
-    </Image>
-    <Image Include="assets/logo_44x44.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">true</ExcludedFromBuild>
-    </Image>
+    <QtRcc Include="TianLiInstallationPackage.qrc" />
     <QtUic Include="QtWidgetsMessageBox.ui" />
     <QtUic Include="QtWidgetsMessageBox2.ui" />
+    <QtUic Include="TianLiInstallationPackage.ui" />
+    <QtMoc Include="TianLiInstallationPackage.h" />
+    <ClCompile Include="QtWidgetsMessageBox.cpp" />
+    <ClCompile Include="QtWidgetsMessageBox2.cpp" />
+    <ClCompile Include="TianLiInstallationPackage.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QtWidgetsMessageBox.h" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>InstallationPackageClass</class>
- <widget class="QMainWindow" name="InstallationPackageClass">
+ <class>TianLiInstallationPackageClass</class>
+ <widget class="QMainWindow" name="TianLiInstallationPackageClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -19,7 +19,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>InstallationPackage</string>
+   <string>天理安装程序</string>
   </property>
   <property name="styleSheet">
    <string notr="true">font: &quot;微软雅黑&quot; ;</string>
@@ -171,7 +171,7 @@ font-size:14px;
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image:url(:/InstallationPackage/Resource/bg.png)</string>
+     <string notr="true">background-image:url(:/TianLiInstallationPackage/Resource/bg.png)</string>
     </property>
     <property name="text">
      <string/>
@@ -582,7 +582,7 @@ QRadioButton::indicator:checked:pressed {
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="InstallationPackage.qrc"/>
+  <include location="TianLiInstallationPackage.qrc"/>
  </resources>
  <connections/>
 </ui>
