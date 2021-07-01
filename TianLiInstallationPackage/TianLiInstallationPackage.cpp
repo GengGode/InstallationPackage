@@ -6,7 +6,7 @@ TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
 {
 	ui.setupUi(this);
 	this->setWindowFlags(Qt::FramelessWindowHint);
-	ui.lineEdit_Path->setText(InstallPath);
+	ui.lineEdit_Path->setText(InstallPath+ InstallDirName);
 
 	ui.ins_label->hide();
 	ui.ins_progressBar->hide();
@@ -85,15 +85,15 @@ bool TianLiInstallationPackage::un7z()
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
 
 	QDir dir;
-	if (!dir.exists(InstallPath)) {
-		dir.mkpath(InstallPath);
+	if (!dir.exists(InstallPath + InstallDirName)) {
+		dir.mkpath(InstallPath + InstallDirName);
 	}
 
 	connect(unZip_7z, SIGNAL(readyReadStandardOutput()), this, SLOT(unZip_ReadStandardOutput()));
 	connect(unZip_7z, SIGNAL(finished(int)), this, SLOT(unZip_finished(int)));
 
 	QStringList args;
-	args << "x" << SourcePath << "-o" + InstallPath << "-aoa" << "-bd";
+	args << "x" << SourcePath << "-o" + InstallPath + InstallDirName << "-aoa" << "-bd";
 	unZip_7z->start(exe, args);
 
 	return true;
@@ -164,7 +164,7 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 
 void TianLiInstallationPackage::CreateLinke()
 {
-	QFile::link(InstallPath+ ExportName, QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).append("/").append(LinkerName+".lnk"));
+	QFile::link(InstallPath + InstallDirName + ExportName, QStandardPaths::writableLocation(QStandardPaths::DesktopLocation).append("/").append(LinkerName+".lnk"));
 }
 
 void TianLiInstallationPackage::Mini()
@@ -349,19 +349,21 @@ void TianLiInstallationPackage::ChangePathBox()
 	QString Path = QFileDialog::getExistingDirectory(this, "选择安装目录", InstallPath, QFileDialog::ShowDirsOnly);
 	if (!Path.isEmpty())
 	{
-		ui.lineEdit_Path->setText(Path);
+		InstallPath = Path;
+		ui.lineEdit_Path->setText(Path+ InstallDirName);
 	}
 	HideMask();
 }
 
 void TianLiInstallationPackage::PathChanged(QString path)
 {
+	path = path.section("/", 0, -1);
 	CheckInstallPath(path);
 }
 
 void TianLiInstallationPackage::Start()
 {
-	QString command = InstallPath + ExportName;
+	QString command = InstallPath + InstallDirName + ExportName;
 	TCHAR szCmdLine[1024] = {};
 
 	command.toWCharArray(szCmdLine);

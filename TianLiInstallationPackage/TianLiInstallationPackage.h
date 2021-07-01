@@ -37,10 +37,11 @@ private:
 	QtWidgetsMessageBox2 *WidgetBox2 = nullptr;
 private:
 	QString SourcePath;
-	QString SourceName= "/source.7z";
-	QString LinkerName = "天理";
-	QString ExportName = "/天理系统.exe";
-	QString InstallPath = "C:/Program Files/天理";
+	QString SourceName= "/Source.zip";
+	QString LinkerName = "空荧酒馆原神地图";
+	QString ExportName = "/map.exe";
+	QString InstallPath = "C:/Program Files";
+	QString InstallDirName = "/空荧酒馆原神地图";
 	QProcess *unZip_7z = nullptr;
 
 private:
