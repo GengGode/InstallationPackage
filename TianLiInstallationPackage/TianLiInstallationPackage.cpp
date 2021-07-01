@@ -28,6 +28,7 @@ TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
 	connect(ui.pushButton_Custom, SIGNAL(clicked()), this, SLOT(CustomSetChange()));
 
 	connect(ui.pushButton_ChangePath, SIGNAL(clicked()), this, SLOT(ChangePathBox()));
+	connect(ui.pushButton_ShowLisence, SIGNAL(clicked()), this, SLOT(ShowLisence()));
 	connect(ui.lineEdit_Path, SIGNAL(textChanged(QString)), this, SLOT(PathChanged(QString)));
 
 	connect(ui.end_pushButton_Start, SIGNAL(clicked()), this, SLOT(Start()));
@@ -122,6 +123,44 @@ void TianLiInstallationPackage::HideMask()
 	}
 }
 
+bool TianLiInstallationPackage::CheckInstallPath(QString path)
+{
+	QString driver = path.section(":/", 0, 0) + ":/";
+	LPCWSTR lpcwstrDriver = (LPCWSTR)driver.utf16();
+	ULARGE_INTEGER liFreeBytesAvailable, liTotalBytes, liTotalFreeBytes;
+	if (GetDiskFreeSpaceEx(lpcwstrDriver, &liFreeBytesAvailable, &liTotalBytes, &liTotalFreeBytes))
+	{
+		quint64 size = (quint64)liTotalFreeBytes.QuadPart / 1024 / 1024;
+		if (size < 300)
+		{
+			//kongjianbuzu
+			isValidPath = false;
+			ShowMessageLabel("空间不足");
+			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "MB");
+		}
+		else if (size < 1024)
+		{
+			isValidPath = true;
+			HideMessageLabel();
+			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "MB");
+		}
+		else
+		{
+			isValidPath = true;
+			size = size / 1024;
+			HideMessageLabel();
+			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "GB");
+		}
+	}
+	else
+	{
+		// 无效路径
+		isValidPath = false;
+		ShowMessageLabel("无效路径");
+	}
+	return isValidPath;
+}
+
 void TianLiInstallationPackage::Mini()
 {
 	this->showMinimized();
@@ -133,8 +172,12 @@ void TianLiInstallationPackage::Exit()
 	{
 		this->close();
 	}
-	this->ShowMessageBox2("是否退出安装");
-	connect(WidgetBox2, SIGNAL(isOK(bool)), this, SLOT(isClose(bool)));
+	else
+	{
+		this->ShowMessageBox2("是否退出安装");
+		connect(WidgetBox2, SIGNAL(isOK(bool)), this, SLOT(isClose(bool)));
+	}
+
 }
 
 void TianLiInstallationPackage::isClose(bool isClose)
@@ -218,6 +261,7 @@ void TianLiInstallationPackage::Install()
 {
 	if (ui.radioButton_IsAgree->isChecked() == true)
 	{
+		CheckInstallPath(ui.lineEdit_Path->text());
 		if (!isValidPath)
 		{
 			return;
@@ -253,6 +297,11 @@ void TianLiInstallationPackage::Install()
 	{
 		ShowMessageBox("需要同意许可协议");//需要同意许可协议
 	}
+}
+
+void TianLiInstallationPackage::ShowLisence()
+{
+	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.site/docs/agreement.html")));
 }
 
 void TianLiInstallationPackage::CustomSetChange()
@@ -301,39 +350,7 @@ void TianLiInstallationPackage::ChangePathBox()
 
 void TianLiInstallationPackage::PathChanged(QString path)
 {
-	QString driver = path.section(":/", 0, 0) + ":/";
-	LPCWSTR lpcwstrDriver = (LPCWSTR)driver.utf16();
-	ULARGE_INTEGER liFreeBytesAvailable, liTotalBytes, liTotalFreeBytes;
-	if (GetDiskFreeSpaceEx(lpcwstrDriver, &liFreeBytesAvailable, &liTotalBytes, &liTotalFreeBytes))
-	{
-		quint64 size = (quint64)liTotalFreeBytes.QuadPart / 1024 / 1024;
-		if (size < 300)
-		{
-			//kongjianbuzu
-			isValidPath = false;
-			ShowMessageLabel("空间不足");
-			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "MB");
-		}
-		else if (size < 1024)
-		{
-			isValidPath = true;
-			HideMessageLabel();
-			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "MB");
-		}
-		else
-		{
-			isValidPath = true;
-			size = size / 1024;
-			HideMessageLabel();
-			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "GB");
-		}
-	}
-	else
-	{
-		// 无效路径
-		isValidPath = false;
-		ShowMessageLabel("无效路径");
-	}
+	CheckInstallPath(path);
 }
 
 void TianLiInstallationPackage::Start()

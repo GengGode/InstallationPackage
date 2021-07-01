@@ -21,6 +21,10 @@
   <property name="windowTitle">
    <string>天理安装程序</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="TianLiInstallationPackage.qrc">
+    <normaloff>:/icon/Resource/MainIcon.ico</normaloff>:/icon/Resource/MainIcon.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">font: &quot;微软雅黑&quot; ;</string>
   </property>

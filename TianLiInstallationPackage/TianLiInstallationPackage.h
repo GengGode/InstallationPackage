@@ -5,6 +5,7 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QMouseEvent>
+#include <QDesktopServices>
 #include <QPropertyAnimation>
 #include <QtWidgets/QMainWindow>
 #include "ui_TianLiInstallationPackage.h"
@@ -51,6 +52,7 @@ private:
 	void ShowMask();
 	void HideMask();
 
+	bool CheckInstallPath(QString path);
 private slots:
 	void Mini();
 	void Exit();
@@ -63,6 +65,7 @@ private slots:
 	void ShowMessageBox2(QString text);
 
 	void Install();
+	void ShowLisence();
 	void CustomSetChange();
 	void ChangePathBox();
 	void PathChanged(QString path);
