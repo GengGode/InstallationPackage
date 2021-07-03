@@ -10,7 +10,7 @@ branches:
 environment:
     qt: 5.14
     msvc: msvc2017
-    vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2017\Community\VC\Auxiliary\Build
+    vs: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
 
     MyProjectDir: C:\projects\InstallationPackage\
@@ -23,7 +23,8 @@ before_build:
     #- call "%vcvarsall%" x64
     # s c: \Users\Administrator> c: \windows\System32\cmd.exe /A /Q /x D:\gt\5.12.11\msvc2817_6u\bin\gtenv2.batsetting up environment for Qt usage. ..
     #- ps: c:\windows\System32\cmd.exe /A /Q /K %QTDIR%\bin\qtenv2.bat
-    - cmd /C %QTDIR%\bin\qtenv2.bat
+    - cmd /C %QTDIR%\bin\qtenv2.bat && exit
+    - ehco %vs%
     - cmd /C %vs%\vcvars64.bat
     
 build_script:
