@@ -27,7 +27,7 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - cd %env:MyProjectDir%\TianLiInstallationPackage
+    - cd %MyProjectDir%\TianLiInstallationPackage
     - qmake
     - nmake
     
