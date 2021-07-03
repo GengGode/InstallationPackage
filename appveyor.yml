@@ -25,7 +25,7 @@ before_build:
     #- ps: c:\windows\System32\cmd.exe /A /Q /K %QTDIR%\bin\qtenv2.bat
     #- dir C:\"Program Files (x86)"\"Microsoft Visual Studio"\
     - set PATH=%PATH%;%QTDIR%\bin;
-    #- call %QTDIR%\bin\qtenv2.bat
+    - call %QTDIR%\bin\qtenv2.bat
     - call %vs%\vcvars64.bat x64
     
 build_script:
