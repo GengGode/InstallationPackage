@@ -1,0 +1,49 @@
+version: '1.0.{build}'
+os: Visual Studio 2017
+image: Qt 5.14.2
+configuration: Release
+platform:
+    - x64
+branches:
+  only:
+    - master
+
+environment:
+  MyProjectDir: C:\projects\InstallPackage\
+  # OpenCvDir: C:\projects\opencv\
+  # OpenCvUrl: https://github.com/GengGode/opencv450Release/releases/download/v1.0/Release.zip
+skip_tags: true
+  
+install:
+    - ps: $env:TIME_STRING=(get-date -UFormat "%Y%m%d%a").ToString()
+
+    # download opencv:
+    # - mkdir %OpenCvDir%
+    #- dir %OpenCvDir%
+    # - appveyor DownloadFile %OpenCvUrl%
+    # - 7z x ./*.zip -y -o%OpenCvDir%
+    # - rm -f ./*.zip
+    #- dir %OpenCvDir%
+    #- dir %OpenCvDir%x64\vc15\staticlib
+    
+before_build: 
+    #- dir  %MyProjectDir%
+    #- dir  %OpenCvDir%
+
+build_script:
+    - MSBuild %MyProjectDir%InstallPackage\TianLiInstallationPackage.vcxproj
+
+after_build:
+    # copy include and source code files
+    #- ls
+    - mkdir %MyProjectDir%x64\build\
+    - ps: cp -r $env:MyProjectDir\InstallationPackage\x64\Release\*.dll $env:MyProjectDir\x64\build\
+
+    - 7z a cvautotrack.7z %MyProjectDir%x64\build\*
+    - echo %APPVEYOR_BUILD_VERSION% >version.tag
+    - appveyor PushArtifact version.tag
+    - appveyor PushArtifact cvAutoTrack.7z
+    
+#artifacts:
+    #- path: build/Release
+    #artifacts path name must be appveyor API
