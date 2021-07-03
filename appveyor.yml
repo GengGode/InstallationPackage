@@ -9,6 +9,10 @@ branches:
 
 environment:
     qt: 5.14
+    msvc: msvc2017
+    vs: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
+    QTDIR: C:\Qt\%qt%\%msvc%_64
+
     MyProjectDir: C:\projects\InstallationPackage\
   # OpenCvDir: C:\projects\opencv\
   # OpenCvUrl: https://github.com/GengGode/opencv450Release/releases/download/v1.0/Release.zip
@@ -18,6 +22,7 @@ install:
     - ps: $env:TIME_STRING=(get-date -UFormat "%Y%m%d%a").ToString()
     - dir C:\Qt
     - dir C:\
+
     # download opencv:
     # - mkdir %OpenCvDir%
     #- dir %OpenCvDir%
@@ -30,7 +35,7 @@ install:
 before_build: 
     #- dir  %MyProjectDir%
     #- dir  %OpenCvDir%
-
+    set PATH=%PATH%;%QTDIR%\bin;
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - qmake
