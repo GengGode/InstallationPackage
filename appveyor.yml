@@ -13,7 +13,7 @@ environment:
     vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
 
-    MyProjectDir: C:\projects\InstallationPackage\
+    MyProjectDir: C:\projects\InstallationPackage
     
 skip_tags: true
 
@@ -27,19 +27,19 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - cd %MyProjectDir%TianLiInstallationPackage
+    - cd $env:MyProjectDir\TianLiInstallationPackage
     - qmake
     - nmake
     
 after_build:
     # copy include and source code files
     #- ls
-    - mkdir %MyProjectDir%x64\build\
-    - ps: cp -r %MyProjectDir%x64\Release\TianLi_setup.exe %MyProjectDir%x64\build\
-    - cd %MyProjectDir%x64\build\
+    - mkdir $env:MyProjectDir\x64\build\
+    - ps: cp -r $env:MyProjectDir\x64\Release\TianLi_setup.exe $env:MyProjectDir\x64\build\
+    - cd $env:MyProjectDir\x64\build\
     - windeployqt TianLi_setup.exe
 
-    - 7z a TianLi_setup.zip %MyProjectDir%x64\build\*
+    - 7z a TianLi_setup.zip $env:MyProjectDir\x64\build\*
     - echo %APPVEYOR_BUILD_VERSION% >version.tag
     #- appveyor PushArtifact version.tag
     #- appveyor PushArtifact TianLi_setup.7z
