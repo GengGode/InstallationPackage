@@ -1,7 +1,5 @@
 version: '1.0.{build}'
 image: Visual Studio 2019
-environment:
-    qt: 5.14
 configuration: Release
 platform:
     - x64
@@ -10,7 +8,8 @@ branches:
     - master
 
 environment:
-  MyProjectDir: C:\projects\InstallationPackage\
+    qt: 5.14
+    MyProjectDir: C:\projects\InstallationPackage\
   # OpenCvDir: C:\projects\opencv\
   # OpenCvUrl: https://github.com/GengGode/opencv450Release/releases/download/v1.0/Release.zip
 skip_tags: true
