@@ -1,5 +1,6 @@
 version: '1.0.{build}'
 image: Visual Studio 2019
+qt: 5.14
 configuration: Release
 platform:
     - x64
@@ -31,8 +32,12 @@ before_build:
     #- dir  %OpenCvDir%
 
 build_script:
-    - MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
+    #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
 
+build:
+    - qmake
+    - make
+    
 after_build:
     # copy include and source code files
     #- ls
