@@ -15,7 +15,8 @@ skip_tags: true
   
 install:
     - ps: $env:TIME_STRING=(get-date -UFormat "%Y%m%d%a").ToString()
-
+    - dir C:\Qt
+    - dir C:\
     # download opencv:
     # - mkdir %OpenCvDir%
     #- dir %OpenCvDir%
