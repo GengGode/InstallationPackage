@@ -1,6 +1,7 @@
 version: '1.0.{build}'
 image: Visual Studio 2019
-qt: 5.14
+environment:
+    qt: 5.14
 configuration: Release
 platform:
     - x64
