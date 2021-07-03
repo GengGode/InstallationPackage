@@ -1,6 +1,5 @@
 version: '1.0.{build}'
 os: Visual Studio 2017
-image: Qt 5.14.2
 configuration: Release
 platform:
     - x64
