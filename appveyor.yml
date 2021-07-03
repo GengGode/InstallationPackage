@@ -34,9 +34,9 @@ install:
 before_build: 
     #- dir  %MyProjectDir%
     #- dir  %OpenCvDir%
-    set PATH=%PATH%;%QTDIR%\bin;
-    set vcvarsall=%vs%\vcvarsall.bat
-    call "%vcvarsall%" x64
+    - set PATH=%PATH%;%QTDIR%\bin;
+    - set vcvarsall=%vs%\vcvarsall.bat
+    - call "%vcvarsall%" x64
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - cd %MyProjectDir%TianLiInstallationPackage
