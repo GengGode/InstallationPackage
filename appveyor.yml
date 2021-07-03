@@ -31,9 +31,8 @@ before_build:
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - cd %MyProjectDir%TianLiInstallationPackage
-    - dir
     - qmake
-    - make
+    - nmake
     
 after_build:
     # copy include and source code files
