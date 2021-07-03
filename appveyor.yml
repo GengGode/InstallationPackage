@@ -26,7 +26,7 @@ before_build:
     #- dir C:\"Program Files (x86)"\"Microsoft Visual Studio"\
     - call %QTDIR%\bin\qtenv2.bat
     - echo %vs%
-    - cmd %vs%\vcvars64.bat x64
+    - call %vs%\vcvars64.bat x64
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
