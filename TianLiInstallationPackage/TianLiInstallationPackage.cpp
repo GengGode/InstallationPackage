@@ -6,6 +6,16 @@ TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
 {
 	ui.setupUi(this);
 	this->setWindowFlags(Qt::FramelessWindowHint);
+
+	BOOL bEnable = false;
+	DwmIsCompositionEnabled(&bEnable);
+	if (bEnable) {
+		DWMNCRENDERINGPOLICY ncrp = DWMNCRP_ENABLED;
+		DwmSetWindowAttribute((HWND)winId(), DWMWA_NCRENDERING_POLICY, &ncrp, sizeof(ncrp));
+		MARGINS margins = { -1 };
+		DwmExtendFrameIntoClientArea((HWND)winId(), &margins);
+	}
+
 	ui.lineEdit_Path->setText(InstallPath+ InstallDirName);
 
 	ui.ins_label->hide();
@@ -13,8 +23,6 @@ TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
 	ui.end_pushButton_Start->hide();
 	ui.end_radioButton->hide();
 
-
-	this->setFixedHeight(400);
 	ui.label_Tag->hide();
 	ui.lineEdit_Path->hide();
 	ui.pushButton_ChangePath->hide();
@@ -93,7 +101,7 @@ bool TianLiInstallationPackage::un7z()
 	connect(unZip_7z, SIGNAL(finished(int)), this, SLOT(unZip_finished(int)));
 
 	QStringList args;
-	args << "x" << SourcePath << "-o" + InstallPath + InstallDirName << "-aoa" << "-bd";
+	args << "x" << SourcePath << "-o" + InstallPath + InstallDirName << "-aoa" << "-bt";
 	unZip_7z->start(exe, args);
 
 	return true;
@@ -319,7 +327,13 @@ void TianLiInstallationPackage::CustomSetChange()
 		ui.pushButton_ChangePath->hide();
 		ui.label_Tag_Message->hide();
 
-		this->setFixedHeight(400);
+		QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
+		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
+		animation->setDuration(100);
+		animation->setStartValue(this->geometry());
+		animation->setEndValue(QRect(this->x(), this->y(), 710, 400));
+
+		animation->start();
 
 		isDownBar = false;
 	}
@@ -330,17 +344,16 @@ void TianLiInstallationPackage::CustomSetChange()
 		ui.pushButton_ChangePath->show();
 		ui.label_Tag_Message->show();
 
-		this->setFixedHeight(530);
+		QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
+		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
+		animation->setDuration(100);
+		animation->setStartValue(this->geometry());
+		animation->setEndValue(QRect(this->x(), this->y(), 710, 530));
+
+		animation->start();
 
 		isDownBar = true;
 	}
-
-	//QPropertyAnimation * pWidgetProcessUp = new QPropertyAnimation(this, "size");
-	//// QRect（x，y，width，hight）
-	//pWidgetProcessUp->setStartValue(size());  //初始状态
-	//pWidgetProcessUp->setEndValue(QSize( width(), 530));  //结束状态
-	//pWidgetProcessUp->setDuration(300);                              //设置动画执行时间，单位毫秒
-	//pWidgetProcessUp->start();
 }
 
 void TianLiInstallationPackage::ChangePathBox()
