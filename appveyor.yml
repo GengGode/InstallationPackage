@@ -1,0 +1,47 @@
+version: '1.0.{build}'
+image: Visual Studio 2019
+configuration: Release
+platform:
+    - x64
+branches:
+  only:
+    - master
+
+environment:
+    qt: 5.14
+    msvc: msvc2017
+    vs: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build
+    QTDIR: C:\Qt\5.14.2\msvc2017_64
+
+    MyProjectDir: C:\projects\InstallationPackage\
+    
+skip_tags: true
+
+before_build: 
+    #- set PATH=%PATH%;%QTDIR%\bin;
+    #- set vcvarsall=%vs%\vcvarsall.bat
+    #- call "%vcvarsall%" x64
+    # s c: \Users\Administrator> c: \windows\System32\cmd.exe /A /Q /x D:\gt\5.12.11\msvc2817_6u\bin\gtenv2.batsetting up environment for Qt usage. ..
+    - ps: c:\windows\System32\cmd.exe /A /Q /K %QTDIR%\bin\qtenv2.bat
+    - ps: c:\windows\System32\cmd.exe /k %vs%\vcvars64.bat
+    
+build_script:
+    #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
+    - cd %MyProjectDir%TianLiInstallationPackage
+    - qmake
+    - make
+    
+after_build:
+    # copy include and source code files
+    #- ls
+    - mkdir %MyProjectDir%x64\build\
+    - ps: cp -r $env:MyProjectDir\TianLiInstallationPackage\x64\Release\*.dll $env:MyProjectDir\x64\build\
+
+    - 7z a cvautotrack.7z %MyProjectDir%x64\build\*
+    - echo %APPVEYOR_BUILD_VERSION% >version.tag
+    #- appveyor PushArtifact version.tag
+    #- appveyor PushArtifact cvAutoTrack.7z
+    
+#artifacts:
+    #- path: build/Release
+    #artifacts path name must be appveyor API
