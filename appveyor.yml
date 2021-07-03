@@ -16,27 +16,14 @@ environment:
     MyProjectDir: C:\projects\InstallationPackage\
     
 skip_tags: true
-  
-install:
-    - ps: $env:TIME_STRING=(get-date -UFormat "%Y%m%d%a").ToString()
-    - dir C:\Qt
-    - dir C:\
 
-    # download opencv:
-    # - mkdir %OpenCvDir%
-    #- dir %OpenCvDir%
-    # - appveyor DownloadFile %OpenCvUrl%
-    # - 7z x ./*.zip -y -o%OpenCvDir%
-    # - rm -f ./*.zip
-    #- dir %OpenCvDir%
-    #- dir %OpenCvDir%x64\vc15\staticlib
-    
 before_build: 
-    #- dir  %MyProjectDir%
-    #- dir  %OpenCvDir%
-    - set PATH=%PATH%;%QTDIR%\bin;
-    - set vcvarsall=%vs%\vcvarsall.bat
-    - call "%vcvarsall%" x64
+    #- set PATH=%PATH%;%QTDIR%\bin;
+    #- set vcvarsall=%vs%\vcvarsall.bat
+    #- call "%vcvarsall%" x64
+    - %comspec% /A /Q /K %QTDIR%\bin\qtenv2.bat
+    - %comspec% /k %vs%\vcvars64.bat
+    
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - cd %MyProjectDir%TianLiInstallationPackage
