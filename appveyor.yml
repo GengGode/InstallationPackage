@@ -24,7 +24,7 @@ before_build:
     # s c: \Users\Administrator> c: \windows\System32\cmd.exe /A /Q /x D:\gt\5.12.11\msvc2817_6u\bin\gtenv2.batsetting up environment for Qt usage. ..
     #- ps: c:\windows\System32\cmd.exe /A /Q /K %QTDIR%\bin\qtenv2.bat
     - cmd /C %QTDIR%\bin\qtenv2.bat && exit
-    - ehco %vs%
+    - echo %vs%
     - cmd /C %vs%\vcvars64.bat
     
 build_script:
