@@ -1,5 +1,5 @@
 #pragma once
-#pragma execution_character_set("utf-8")
+//#pragma execution_character_set("utf-8")
 #include <QMouseEvent>
 #include <QWidget>
 #include "ui_QtWidgetsMessageBox2.h"

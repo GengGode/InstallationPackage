@@ -1,5 +1,5 @@
 #include "QtWidgetsMessageBox2.h"
-#pragma execution_character_set("utf-8")
+//#pragma execution_character_set("utf-8")
 
 QtWidgetsMessageBox2::QtWidgetsMessageBox2(QWidget *parent)
 	: QWidget(parent)
