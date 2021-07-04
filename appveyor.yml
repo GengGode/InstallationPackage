@@ -57,8 +57,8 @@ notifications:
   - provider: Email
     to:
       - ysx20201030@163.com
-    subject: '{{APPVEYOR_BUILD_VERSION}} Updata $(ProJectExeName)'                  # optional
-    message: "{{APPVEYOR_BUILD_VERSION}}-%ProjectName%-%(ProjectName)%-%{ProjectName}%-$env:ProjectName-{{TIME_STRING}}"    # optional
+    subject: '{{APPVEYOR_BUILD_VERSION}} Updata {{projectName}} Build {{status}}'                  # optional
+    message: "{{APPVEYOR_BUILD_VERSION}}-{{projectName}}-{{TIME_STRING}}"    # optional
     on_build_success: true
     on_build_failure: false
     on_build_status_changed: false
