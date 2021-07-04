@@ -1,5 +1,5 @@
 #include "TianLiInstallationPackage.h"
-//#pragma execution_character_set("utf-8")
+#pragma execution_character_set("utf-8")
 
 TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
 	: QMainWindow(parent)
