@@ -27,4 +27,4 @@ FORMS += ./QtWidgetsMessageBox.ui \
     ./TianLiInstallationPackage.ui
 RESOURCES += QtWidgetsMessageBox.qrc \
     TianLiInstallationPackage.qrc
-
+msvc:QMAKE_CXXFLAGS += -execution-charset:utf-8
