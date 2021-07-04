@@ -27,3 +27,4 @@ FORMS += ./QtWidgetsMessageBox.ui \
     ./TianLiInstallationPackage.ui
 RESOURCES += QtWidgetsMessageBox.qrc \
     TianLiInstallationPackage.qrc
+

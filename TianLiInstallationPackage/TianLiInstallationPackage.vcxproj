@@ -124,6 +124,9 @@
   <ItemGroup>
     <Image Include="Resource\MainIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="TianLiInstallationPackage.pro" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
     <Import Project="$(QtMsBuild)\qt.targets" />

@@ -74,14 +74,14 @@ bool TianLiInstallationPackage::isCoundUn7z()
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
 	if (QDir().exists(exe) == false)
 	{
-		ShowMessageBox("未能找到解压模块");//未能找到解压模块
+		ShowMessageBox(QString::fromUtf8("未能找到解压模块"));//未能找到解压模块
 		return false;
 	}
 
 	SourcePath = QApplication::applicationDirPath() + SourceName;
 	if (QDir().exists(SourcePath) == false)
 	{
-		ShowMessageBox("资源缺失");//资源缺失
+		ShowMessageBox(QString::fromUtf8("资源缺失"));//资源缺失
 		return false;
 	}
 	return true;
@@ -144,7 +144,7 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 		{
 			//kongjianbuzu
 			isValidPath = false;
-			ShowMessageLabel("空间不足");
+			ShowMessageLabel(QString::fromUtf8("空间不足"));
 			ui.label_Tag_Message->setText("所需空间：300MB       可用空间：" + QString::number(size) + "MB");
 		}
 		else if (size < 1024)
@@ -165,7 +165,7 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 	{
 		// 无效路径
 		isValidPath = false;
-		ShowMessageLabel("无效路径");
+		ShowMessageLabel(QString::fromUtf8("无效路径"));
 	}
 	return isValidPath;
 }
@@ -188,7 +188,7 @@ void TianLiInstallationPackage::Exit()
 	}
 	else
 	{
-		this->ShowMessageBox2("是否退出安装");
+		this->ShowMessageBox2(QString::fromUtf8("是否退出安装"));
 		connect(WidgetBox2, SIGNAL(isOK(bool)), this, SLOT(isClose(bool)));
 	}
 
@@ -309,7 +309,7 @@ void TianLiInstallationPackage::Install()
 	}
 	else
 	{
-		ShowMessageBox("需要同意许可协议");//需要同意许可协议
+		ShowMessageBox(QString::fromUtf8("需要同意许可协议"));//需要同意许可协议
 	}
 }
 
@@ -399,7 +399,7 @@ void TianLiInstallationPackage::Start()
 void TianLiInstallationPackage::unZip_ReadStandardOutput()
 {
 	QByteArray qbt = unZip_7z->readAll();
-	QString msg = QString::fromLocal8Bit(qbt);
+	QString msg = QString::fromUtf8(qbt);
 
 	msg = msg.section("%", 0);
 	int unzipBarValue = msg.toInt();
