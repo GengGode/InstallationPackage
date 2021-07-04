@@ -6,8 +6,6 @@ TEMPLATE = app
 TARGET = TianLi_setup
 DESTDIR = ../x64/Release
 CONFIG += release
-
-
 LIBS += -L"." \
     -ldwmapi
 DEPENDPATH += .

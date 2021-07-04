@@ -14,7 +14,7 @@ environment:
     QTDIR: C:\Qt\5.14.2\msvc2017_64
     ProjectName: TianLiInstallationPackage
     ProJectExeName: TianLi_setup
-    MyProjectDir: C:\projects\%ProjectName%
+    MyProjectDir: C:\projects\InstallationPackage
     
 skip_tags: true
 
