@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #pragma execution_character_set("utf-8")
 #include <dwmapi.h>
 #include <atlconv.h>
@@ -39,10 +39,10 @@ private:
 private:
 	QString SourcePath;
 	QString SourceName= "/source.7z";
-	QString LinkerName = "ÌìÀí";
-	QString ExportName = "/ÌìÀíÏµÍ³.exe";
+	QString LinkerName = "å¤©ç†";
+	QString ExportName = "/å¤©ç†ç³»ç»Ÿ.exe";
 	QString InstallPath = "C:/Program Files";
-	QString InstallDirName = "/ÌìÀí";
+	QString InstallDirName = "/å¤©ç†";
 	QProcess *unZip_7z = nullptr;
 
 private:
