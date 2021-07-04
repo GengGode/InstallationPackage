@@ -188,7 +188,7 @@ void TianLiInstallationPackage::Exit()
 	}
 	else
 	{
-		this->ShowMessageBox2("是否退出安装");
+		this->ShowMessageBox2(ShowTextStr);
 		connect(WidgetBox2, SIGNAL(isOK(bool)), this, SLOT(isClose(bool)));
 	}
 

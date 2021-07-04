@@ -44,7 +44,7 @@ private:
 	QString InstallPath = "C:/Program Files";
 	QString InstallDirName = "/天理";
 	QProcess *unZip_7z = nullptr;
-
+	QString ShowTextStr = "是否退出安装";
 private:
 	QPoint m_Press;
 	QPoint m_Move;
