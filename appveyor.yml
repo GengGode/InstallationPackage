@@ -12,8 +12,9 @@ environment:
     msvc: msvc2017
     vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
-
-    MyProjectDir: C:\projects\InstallationPackage
+    ProjectName: TianLiInstallationPackage
+    ProJectExeName: TianLi_setup
+    MyProjectDir: C:\projects\%ProjectName%
     
 skip_tags: true
 
@@ -27,7 +28,7 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - cd %MyProjectDir%\TianLiInstallationPackage
+    - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake
     
@@ -35,15 +36,33 @@ after_build:
     # copy include and source code files
     #- ls
     - mkdir %MyProjectDir%\x64\build\
-    - ps: cp -r $env:MyProjectDir\x64\Release\TianLi_setup.exe $env:MyProjectDir\x64\build\
+    - ps: cp -r $env:MyProjectDir\x64\Release\$env:ProJectExeName.exe $env:MyProjectDir\x64\build\
     - cd %MyProjectDir%\x64\build\
-    - windeployqt TianLi_setup.exe
+    - windeployqt %ProJectExeName%.exe
 
-    - 7z a TianLi_setup.zip %MyProjectDir%\x64\build\*
+    - 7z a %ProJectExeName%.7z %MyProjectDir%\x64\build\*
     - echo %APPVEYOR_BUILD_VERSION% >version.tag
-    #- appveyor PushArtifact version.tag
-    #- appveyor PushArtifact TianLi_setup.7z
+    - appveyor PushArtifact version.tag
+    - appveyor PushArtifact %ProJectExeName%.7z
     
-#artifacts:
-    #- path: build/Release
-    #artifacts path name must be appveyor API
+deploy:
+    - provider: GitHub
+      description: '$(APPVEYOR_BUILD_VERSION) Updata $(ProJectExeName)' 
+      auth_token:
+         secure: G/Fzf0bGIhqqt+XvsC5AXrZVNs3atGU7XCzJxqiUZEwOxoZrjxk87ENI/OitnXCo
+      draft: false
+      tag: $(APPVEYOR_BUILD_VERSION)
+      force_update: true
+      on:  
+        APPVEYOR_REPO_TAG: false
+
+notifications:
+  - provider: Email
+    to:
+      - ysx20201030@163.com
+    subject: '{{APPVEYOR_BUILD_VERSION}} Updata $(ProJectExeName)'                  # optional
+    message: "${{APPVEYOR_BUILD_VERSION}}-AutoTrack-${{TIME_STRING}}"    # optional
+    on_build_success: true
+    on_build_failure: false
+    on_build_status_changed: false
+
