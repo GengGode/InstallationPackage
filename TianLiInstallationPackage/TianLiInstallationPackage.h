@@ -44,7 +44,12 @@ private:
 	QString InstallPath = "C:/Program Files";
 	QString InstallDirName = "/天理";
 	QProcess *unZip_7z = nullptr;
-	QString ShowTextStr = "是否退出安装";
+	QString ShowTextStr0 = "是否退出安装";
+	QString ShowTextStr1 = "需要同意许可协议";
+	QString ShowTextStr2 = "空间不足";
+	QString ShowTextStr3 = "无效路径";
+	QString ShowTextStr4 = "未能找到解压模块";
+	QString ShowTextStr5 = "资源缺失";
 private:
 	QPoint m_Press;
 	QPoint m_Move;
