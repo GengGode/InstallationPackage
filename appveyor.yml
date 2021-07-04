@@ -45,7 +45,7 @@ after_build:
     
 deploy:
     - provider: GitHub
-      description: '%(commitAuthor): %(commitMessage)' 
+      description: '$(APPVEYOR_PROJECT_SLUG): $(ProJectExeName) $(APPVEYOR_BUILD_VERSION)' 
       auth_token:
          secure: G/Fzf0bGIhqqt+XvsC5AXrZVNs3atGU7XCzJxqiUZEwOxoZrjxk87ENI/OitnXCo
       draft: false

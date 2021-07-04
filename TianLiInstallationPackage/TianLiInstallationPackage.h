@@ -36,6 +36,7 @@ private:
 
 	QtWidgetsMessageBox *WidgetBox = nullptr;
 	QtWidgetsMessageBox2 *WidgetBox2 = nullptr;
+
 private:
 	QString SourcePath;
 	QString SourceName= "/source.7z";
@@ -52,6 +53,7 @@ private:
 	QString ShowTextStr3 = "无效路径";
 	QString ShowTextStr4 = "未能找到解压模块";
 	QString ShowTextStr5 = "资源缺失";
+
 private:
 	QPoint m_Press;
 	QPoint m_Move;
