@@ -25,9 +25,10 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - echo "chcp 65001 &&  dir %MyProjectDir%\x64\Release\ && chcp" >>runTest.bat
-    - call \runTest.bat
+
     - cd %MyProjectDir%\%ProjectName%
+    - echo "chcp 65001 &&  dir %MyProjectDir%\x64\Release\ && chcp" >>runTest.bat
+    - call %MyProjectDir%\%ProjectName%\runTest.bat
     - qmake
     - nmake
     
