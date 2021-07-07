@@ -25,7 +25,7 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - chcp 65001 && call dir %MyProjectDir%\x64\Release\ && chcp
+    - chcp 65001 && call "dir %MyProjectDir%\x64\Release\" && chcp
     - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake
