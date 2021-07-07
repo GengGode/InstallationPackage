@@ -34,13 +34,13 @@ after_build:
     - mkdir %MyProjectDir%\x64\build\
     
     - chcp
-    - chcp 936 && chcp
+    - chcp 65001 && echo 天理 && chcp
     - chcp
     
     - echo %ProJectExeName%
     - echo 天理
     - dir %MyProjectDir%\x64\Release\
-    - chcp 936 && dir %MyProjectDir%\x64\Release\ && copy %MyProjectDir%\x64\Release\天理_setup.exe %MyProjectDir%\x64\build\ /Y
+    - chcp 936 && dir %MyProjectDir%\x64\Release\ && copy %MyProjectDir%\x64\Release\天理_setup.exe %MyProjectDir%\x64\build\ /Y && chcp
     - dir %MyProjectDir%\x64\build\
     - chcp 65001
     - dir %MyProjectDir%\x64\build\
