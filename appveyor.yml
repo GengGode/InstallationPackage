@@ -27,12 +27,6 @@ build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
 
     - cd %MyProjectDir%\%ProjectName%
-    - echo "chcp 65001 &&  dir %MyProjectDir%\x64\Release\ && chcp" >>runTest.bat
-    - dir
-    - echo %MyProjectDir%\%ProjectName%\runTest.bat
-    - echo "chcp 65001 &&  dir %MyProjectDir%\x64\Release\ && chcp" >>中文.bat
-    - dir
-    - call "%MyProjectDir%\%ProjectName%\runTest.bat"
     - qmake
     - nmake
     
@@ -40,19 +34,12 @@ after_build:
     # copy include and source code files
     - mkdir %MyProjectDir%\x64\build\
     
-    - chcp
-    - chcp 65001 && echo 天理 && chcp
-    - chcp
-    
-    - echo %ProJectExeName%
-    - echo 天理
-    - chcp 65001 && call dir %MyProjectDir%\x64\Release\ && chcp
-    - chcp 936 && dir %MyProjectDir%\x64\Release\ && copy %MyProjectDir%\x64\Release\天理_setup.exe %MyProjectDir%\x64\build\ /Y && chcp
-    - dir %MyProjectDir%\x64\build\
-    - chcp 65001
+    - copy %MyProjectDir%\x64\Release\*.exe %MyProjectDir%\x64\build\ 
     - dir %MyProjectDir%\x64\build\
     
     - cd %MyProjectDir%\x64\build\
+    - ren *.exe 天理_setup.exe
+    - dir
     - chcp 65001
     - windeployqt %ProJectExeName%.exe
 
