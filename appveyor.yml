@@ -25,9 +25,6 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - chcp 65001
-    - echo 天理
-    - dir
     - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake
@@ -36,11 +33,11 @@ after_build:
     # copy include and source code files
     - mkdir %MyProjectDir%\x64\build\
     
-    - chcp 65001
+    - chcp 936
     
     - echo %ProJectExeName%
     - echo 天理
-    - copy -y $env:MyProjectDir\x64\Release\%ProJectExeName%.exe %MyProjectDir%\x64\build\
+    - copy -y $env:MyProjectDir\x64\Release\天理_setup.exe %MyProjectDir%\x64\build\
     - dir %MyProjectDir%\x64\build\
     - chcp 65001
     - dir %MyProjectDir%\x64\build\
