@@ -34,7 +34,7 @@ after_build:
     # copy include and source code files
     - mkdir %MyProjectDir%\x64\build\
     - cd %MyProjectDir%\x64\Release\
-    - chcp.com 65001 && ls && chcp.com
+    - chcp.com 65001 && ls && ren *.exe 天理_setup.exe && ls && chcp.com
     - chcp.com
     - ren *.exe \u539F\u795E_setup.exe
     - copy %MyProjectDir%\x64\Release\"\u539F\u795E_setup.exe" %MyProjectDir%\x64\build\ 
