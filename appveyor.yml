@@ -33,11 +33,14 @@ after_build:
     # copy include and source code files
     - mkdir %MyProjectDir%\x64\build\
     
-    - chcp 1200
+    - chcp
+    - chcp 936
+    - chcp
     
     - echo %ProJectExeName%
     - echo 天理
-    - copy -y %MyProjectDir%\x64\Release\天理_setup.exe %MyProjectDir%\x64\build\
+    - dir %MyProjectDir%\x64\Release\
+    - copy %MyProjectDir%\x64\Release\天理_setup.exe %MyProjectDir%\x64\build\ /Y
     - dir %MyProjectDir%\x64\build\
     - chcp 65001
     - dir %MyProjectDir%\x64\build\
