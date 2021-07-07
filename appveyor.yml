@@ -26,6 +26,7 @@ before_build:
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
     - chcp 65001
+    - echo 天理
     - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake
