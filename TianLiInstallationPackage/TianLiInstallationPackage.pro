@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 QT += core widgets 
 TEMPLATE = app
-TARGET = Â§©ÁêÜ_setup
+TARGET = ÃÏ¿Ì_setup
 DESTDIR = ../x64/Release
 CONFIG += release
 LIBS += -L"." \
