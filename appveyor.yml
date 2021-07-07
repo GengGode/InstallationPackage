@@ -34,11 +34,11 @@ after_build:
     # copy include and source code files
     - mkdir %MyProjectDir%\x64\build\
     - cd %MyProjectDir%\x64\Release\
-    - chcp 936 && ren *.exe \u539F\u795E_setup.exe
-    - chcp 936 && copy %MyProjectDir%\x64\Release\\u539F\u795E_setup.exe %MyProjectDir%\x64\build\ 
+    - chcp 65001 && ren *.exe \u539F\u795E_setup.exe
+    - chcp 65001 && copy %MyProjectDir%\x64\Release\\u539F\u795E_setup.exe %MyProjectDir%\x64\build\ 
     
     - cd %MyProjectDir%\x64\build\
-    - chcp 936 && windeployqt \u539F\u795E_setup.exe
+    - chcp 65001 && windeployqt \u539F\u795E_setup.exe
 
     - echo %APPVEYOR_BUILD_VERSION% >version.tag
     - 7z a %ProJectExeName%.7z %MyProjectDir%\x64\build\*
