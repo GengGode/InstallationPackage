@@ -36,7 +36,6 @@ after_build:
     - cd %MyProjectDir%\x64\Release\
     - ren *.exe 天理_setup.exe
     - copy %MyProjectDir%\x64\Release\天理_setup.exe %MyProjectDir%\x64\build\ 
-    - dir %MyProjectDir%\x64\build\
     
     - cd %MyProjectDir%\x64\build\
     - windeployqt 天理_setup.exe
