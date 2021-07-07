@@ -29,7 +29,7 @@ build_script:
     - cd %MyProjectDir%\%ProjectName%
     - echo "chcp 65001 &&  dir %MyProjectDir%\x64\Release\ && chcp" >>runTest.bat
     - dir
-    - echo %MyProjectDir%\%ProjectName%
+    - echo %MyProjectDir%\%ProjectName%\runTest.bat
     - call %MyProjectDir%\%ProjectName%\runTest.bat
     - qmake
     - nmake
