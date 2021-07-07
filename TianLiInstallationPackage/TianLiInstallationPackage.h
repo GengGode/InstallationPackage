@@ -40,7 +40,7 @@ private:
 private:
 	QString SourcePath;
 	QString SourceName= "/source.7z";
-	QString LinkerName = "天理";
+	QString LinkerName = QString::fromLocal8Bit("天理");
 	QString ExportName = "/天理系统.exe";
 	QString InstallPath = "C:/Program Files";
 	QString InstallDirName = "/天理";

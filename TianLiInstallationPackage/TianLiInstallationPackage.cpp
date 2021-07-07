@@ -188,7 +188,8 @@ void TianLiInstallationPackage::Exit()
 	}
 	else
 	{
-		this->ShowMessageBox2(ShowTextStr0);
+		//this->ShowMessageBox2(ShowTextStr0);
+		this->ShowMessageBox2(QString::fromLocal8Bit("是否退出安装"));
 		connect(WidgetBox2, SIGNAL(isOK(bool)), this, SLOT(isClose(bool)));
 	}
 
@@ -309,7 +310,8 @@ void TianLiInstallationPackage::Install()
 	}
 	else
 	{
-		ShowMessageBox(ShowTextStr1);//需要同意许可协议
+		//ShowMessageBox(ShowTextStr1);//需要同意许可协议
+		ShowMessageBox("需要同意许可协议");//需要同意许可协议
 	}
 }
 
