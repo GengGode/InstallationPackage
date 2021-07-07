@@ -36,6 +36,7 @@ after_build:
     - chcp 65001
     - mkdir %MyProjectDir%\x64\build\
     - ps: chcp 65001
+    - ps: ls $env:MyProjectDir\x64\Release\
     - ps: cp -r $env:MyProjectDir\x64\Release\$env:ProJectExeName.exe $env:MyProjectDir\x64\build\
     - dir %MyProjectDir%\x64\build\
     - chcp 65001
