@@ -34,14 +34,11 @@ build_script:
     
 after_build:
     # copy include and source code files
-    #- ls
-    - chcp 65001
     - mkdir %MyProjectDir%\x64\build\
-    - dir %MyProjectDir%\x64\Release\
-    - ps: chcp 65001
 
-    - ps: ls $env:MyProjectDir\x64\Release\
-    - ps: cp -r $env:MyProjectDir\x64\Release\$env:ProJectExeName.exe $env:MyProjectDir\x64\build\
+    - echo %ProJectExeName%
+    - echo 天理
+    - copy -y $env:MyProjectDir\x64\Release\%ProJectExeName%.exe %MyProjectDir%\x64\build\
     - dir %MyProjectDir%\x64\build\
     - chcp 65001
     - dir %MyProjectDir%\x64\build\
