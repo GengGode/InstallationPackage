@@ -97,12 +97,82 @@ bool TianLiInstallationPackage::un7z()
 		dir.mkpath(InstallPath + InstallDirName);
 	}
 
-	connect(unZip_7z, SIGNAL(readyReadStandardOutput()), this, SLOT(unZip_ReadStandardOutput()));
-	connect(unZip_7z, SIGNAL(finished(int)), this, SLOT(unZip_finished(int)));
+	//connect(unZip_7z, SIGNAL(readyReadStandardOutput()), this, SLOT(unZip_ReadStandardOutput()));
+	//connect(unZip_7z, SIGNAL(finished(int)), this, SLOT(unZip_finished(int)));
 
+	//QStringList args;
+	//args << "x" << SourcePath << "-o" + InstallPath + InstallDirName << "-aoa" << "-bt"<<"-bsp1";
+	//
+	//unZip_7z->setReadChannel(QProcess::StandardOutput);
+	//unZip_7z->start(exe, args);
+
+	SECURITY_ATTRIBUTES sa;
+	HANDLE hRead, hWrite;
+	sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+	sa.lpSecurityDescriptor = NULL;
+	sa.bInheritHandle = TRUE;
+	if (!CreatePipe(&hRead, &hWrite, &sa, 0))
+	{
+		return false;
+	}
 	QStringList args;
-	args << "x" << SourcePath << "-o" + InstallPath + InstallDirName << "-aoa" << "-bt";
-	unZip_7z->start(exe, args);
+	//args << "x" << SourcePath << "-o" + InstallPath + InstallDirName << "-aoa" << "-bt"<<"-bsp1";
+	//
+
+	wchar_t command[1024];
+	wchar_t exePath[256];
+	wchar_t sourcePath[256];
+	wchar_t installPath[256];
+
+	exe.fromWCharArray(exePath);
+	SourcePath.fromWCharArray(sourcePath);
+	(InstallPath + InstallDirName).fromWCharArray(installPath);
+
+	//swprintf_s(command, 1024, L"%s%s%s%s", exePath, L" x ", sourcePath, L"-o", installPath, L" -bt -aoa -bsp1");
+	swprintf_s(command,
+		1024,
+		L"%s%s%s%s%s%s", 
+		reinterpret_cast<const wchar_t *>(exe.utf16()),
+		L" x " ,
+		reinterpret_cast<const wchar_t *>(SourcePath.utf16()),
+		L" -o",
+		reinterpret_cast<const wchar_t *>((InstallPath + InstallDirName).utf16()),
+		L" -bt -aoa -bsp1");
+
+	STARTUPINFO si;
+	PROCESS_INFORMATION pi;
+	si.cb = sizeof(STARTUPINFO);
+	GetStartupInfo(&si);
+	si.hStdError = hWrite;            //把创建进程的标准错误输出重定向到管道输入
+	si.hStdOutput = hWrite;           //把创建进程的标准输出重定向到管道输入
+	si.wShowWindow = SW_HIDE;
+	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+	//关键步骤，CreateProcess函数参数意义请查阅MSDN
+	if (!CreateProcess(NULL, command, NULL, NULL, TRUE, NULL, NULL, NULL, &si, &pi))
+	{
+		CloseHandle(hWrite);
+		CloseHandle(hRead);
+		return FALSE;
+	}
+	CloseHandle(hWrite);
+	char buffer[4095] = { 0 };       //用4K的空间来存储输出的内容，只要不是显示文件内容，一般情况下是够用了。
+	DWORD bytesRead;
+	//FILE* pfile = fopen("c:/00.txt","w+");
+	while (true)
+	{
+		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
+			break;
+		QString res(buffer);
+		list.append(res);
+		res = res.section("%", -1);
+		int unzipBarValue = res.toInt();
+		ui.ins_progressBar->setValue(unzipBarValue);
+
+	}
+	CloseHandle(hRead);
+
+	unZip_finished(QProcess::NormalExit);
+
 
 	return true;
 }
@@ -400,14 +470,15 @@ void TianLiInstallationPackage::unZip_ReadStandardOutput()
 {
 	QByteArray qbt = unZip_7z->readAll();
 	QString msg = QString::fromUtf8(qbt);
-
-	msg = msg.section("%", 0);
+	list.append(msg);
+	msg = msg.section("%", -1);
 	int unzipBarValue = msg.toInt();
 	ui.ins_progressBar->setValue(unzipBarValue);
 }
 
 void TianLiInstallationPackage::unZip_finished(int exitCode)
 {
+	ui.ins_progressBar->setValue(100);
 	CreateLinke();
 	if (exitCode == QProcess::NormalExit)
 	{

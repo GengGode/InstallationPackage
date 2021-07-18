@@ -49,12 +49,18 @@
     <ClCompile Include="QtWidgetsMessageBox2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Process7zWorker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="QtWidgetsMessageBox.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="QtWidgetsMessageBox2.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Process7zWorker.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

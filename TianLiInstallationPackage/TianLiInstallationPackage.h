@@ -42,10 +42,15 @@ private:
 	QString SourceName= "/source.7z";
 	QString LinkerName = "天理";
 	QString ExportName = "/天理系统.exe";
+#ifdef _DEBUG
+	QString InstallPath = "E:/tmp/launcher";//"C:/Program Files";
+#else
 	QString InstallPath = "C:/Program Files";
+#endif
 	QString InstallDirName = "/天理";
 	QProcess *unZip_7z = nullptr;
 
+	QStringList list;
 private:
 	QString ShowTextStr0 = "是否退出安装";
 	QString ShowTextStr1 = "需要同意许可协议";

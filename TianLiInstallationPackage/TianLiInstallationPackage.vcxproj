@@ -104,6 +104,7 @@
     <QtUic Include="QtWidgetsMessageBox2.ui" />
     <QtUic Include="TianLiInstallationPackage.ui" />
     <QtMoc Include="TianLiInstallationPackage.h" />
+    <ClCompile Include="Process7zWorker.cpp" />
     <ClCompile Include="QtWidgetsMessageBox.cpp" />
     <ClCompile Include="QtWidgetsMessageBox2.cpp" />
     <ClCompile Include="TianLiInstallationPackage.cpp" />
@@ -116,6 +117,7 @@
     <QtMoc Include="QtWidgetsMessageBox2.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Process7zWorker.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

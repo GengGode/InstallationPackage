@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 		(desktopRect.height() - iHeight) / 2,
 		iWidth, iHeight);
 
-
     w.show();
     return a.exec();
 }

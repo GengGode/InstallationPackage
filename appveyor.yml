@@ -13,7 +13,7 @@ environment:
     vs: C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build
     QTDIR: C:\Qt\5.14.2\msvc2017_64
     ProjectName: TianLiInstallationPackage
-    ProJectExeName: 天理_setup
+    ProJectExeName: TianLi_setup
     MyProjectDir: C:\projects\InstallationPackage
     
 skip_tags: true
@@ -25,28 +25,17 @@ before_build:
     
 build_script:
     #- MSBuild %MyProjectDir%TianLiInstallationPackage\TianLiInstallationPackage.vcxproj
-    - chcp 65001
-    - echo 天理
     - cd %MyProjectDir%\%ProjectName%
     - qmake
     - nmake
     
 after_build:
     # copy include and source code files
-    #- ls
-    - chcp 65001
     - mkdir %MyProjectDir%\x64\build\
     - dir %MyProjectDir%\x64\Release\
-    - ps: chcp 65001
-
-    - ps: ls $env:MyProjectDir\x64\Release\
     - ps: cp -r $env:MyProjectDir\x64\Release\$env:ProJectExeName.exe $env:MyProjectDir\x64\build\
-    - dir %MyProjectDir%\x64\build\
-    - chcp 65001
-    - dir %MyProjectDir%\x64\build\
     
     - cd %MyProjectDir%\x64\build\
-    - chcp 65001
     - windeployqt %ProJectExeName%.exe
 
     - echo %APPVEYOR_BUILD_VERSION% >version.tag
