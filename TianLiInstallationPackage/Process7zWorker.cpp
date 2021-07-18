@@ -3,15 +3,25 @@
 Process7zWorker::Process7zWorker(QObject *parent)
 	: QObject(parent)
 {
-	unzipProcess = new QThread(parent);
-	connect(this, &Process7zWorker::start, this, &Process7zWorker::unzip);
-	this->moveToThread(unzipProcess);
-	unzipProcess->start();
+	//unzipProcess = new QThread(parent);
+	//connect(this, &Process7zWorker::start, this, &Process7zWorker::unzip);
+	//this->moveToThread(unzipProcess);
+	//unzipProcess->start();
 }
 
 Process7zWorker::~Process7zWorker()
 {
 
+}
+
+void Process7zWorker::setZipFilePath(QString zipFile)
+{
+	zipFilePath = zipFile;
+}
+
+void Process7zWorker::setUnZipFilePath(QString unZipFile)
+{
+	unZipFilePath = unZipFile;
 }
 
 void Process7zWorker::unzip()
@@ -30,7 +40,8 @@ void Process7zWorker::unzip()
 	sa.bInheritHandle = TRUE;
 	if (!CreatePipe(&hRead, &hWrite, &sa, 0))
 	{
-		emit unZipError();
+		emit unZipError(1);
+		emit unZipFinished();
 		return;
 	}
 
@@ -60,7 +71,8 @@ void Process7zWorker::unzip()
 	{
 		CloseHandle(hWrite);
 		CloseHandle(hRead);
-		emit unZipError();
+		emit unZipError(2);
+		emit unZipFinished();
 		return;
 	}
 	CloseHandle(hWrite);
@@ -75,7 +87,7 @@ void Process7zWorker::unzip()
 		res = res.section("%", -1);
 		int unzipBarValue = res.toInt();
 
-		emit valueChanged(unzipBarValue);
+		emit unZipProcess(unzipBarValue);
 	}
 	CloseHandle(hRead);
 

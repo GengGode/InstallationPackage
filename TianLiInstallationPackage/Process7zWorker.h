@@ -20,17 +20,16 @@ private:
 	QString unZipFilePath;
 
 public:
-	void setZipFilePath(QString zipFilePath);
-	void setUnZipFilePath(QString unZipFilePath);
+	void setZipFilePath(QString zipFile);
+	void setUnZipFilePath(QString unZipFile);
 
-
-private:
+public:
 	void unzip();
 
 signals:
 	void start();
 signals:
-	void unZipError();
-	void valueChanged(int value);
+	void unZipError(int errorCode);
+	void unZipProcess(int value);
 	void unZipFinished();
 };

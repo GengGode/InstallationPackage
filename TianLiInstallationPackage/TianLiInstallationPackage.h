@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <QDir>
 #include <QLabel>
+#include <QThread>
 #include <QProcess>
 #include <QFileDialog>
 #include <QMouseEvent>
@@ -15,6 +16,7 @@
 #include "ui_TianLiInstallationPackage.h"
 #include "QtWidgetsMessageBox.h"
 #include "QtWidgetsMessageBox2.h"
+#include "Process7zWorker.h"
 
 class TianLiInstallationPackage : public QMainWindow
 {
@@ -48,10 +50,11 @@ private:
 	QString InstallPath = "C:/Program Files";
 #endif
 	QString InstallDirName = "/天理";
-	QProcess *unZip_7z = nullptr;
 
-	QStringList list;
+	Process7zWorker *unZip_7z = nullptr;
+	QThread *unzipProcess = nullptr;
 private:
+	QString TextStr0 = "300MB";
 	QString ShowTextStr0 = "是否退出安装";
 	QString ShowTextStr1 = "需要同意许可协议";
 	QString ShowTextStr2 = "空间不足";
@@ -95,9 +98,14 @@ private slots:
 	void PathChanged(QString path);
 	void Start();
 
-	void unZip_ReadStandardOutput();
-	void unZip_finished(int exitCode);
+	void unZip_Error(int errorCode);
+	void unZip_Process(int value);
+	void unZip_finished();
 
 	void ReceiveCloseSelfSignalFromMainWidgets();
 	void ReceiveCloseSelfSignalFromMainWidgets(bool isOK);
+
+
+signals:
+	void unZip(); 
 };
