@@ -23,7 +23,7 @@ public:
 	void setZipFilePath(QString zipFile);
 	void setUnZipFilePath(QString unZipFile);
 
-public:
+public slots:
 	void unzip();
 
 signals:

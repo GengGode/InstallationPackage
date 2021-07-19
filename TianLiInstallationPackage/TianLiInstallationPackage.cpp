@@ -363,9 +363,10 @@ void TianLiInstallationPackage::Install()
 			ui.ins_progressBar->setValue(0);
 
 			//½ø¶ÈÌõ
-//#define Test
+#define Test
 #ifdef Test
 			
+#ifdef ClassThread
 			if (unZip_7z == nullptr)
 			{
 				unZip_7z = new Process7zWorker(this);
@@ -378,12 +379,17 @@ void TianLiInstallationPackage::Install()
 			connect(this, &TianLiInstallationPackage::unZip, unZip_7z, &Process7zWorker::unzip);
 			unZip_7z->moveToThread(unzipProcess);
 			unzipProcess->start();
-
+#else
+			unZip_7z = new Process7zWorker(NULL);
+#endif
 			unZip_7z->setZipFilePath(SourcePath);
 			unZip_7z->setUnZipFilePath(InstallPath + InstallDirName);
+
 			connect(unZip_7z, &Process7zWorker::unZipError, this, &TianLiInstallationPackage::unZip_Error);
 			connect(unZip_7z, &Process7zWorker::unZipProcess, this, &TianLiInstallationPackage::unZip_Process);
 			connect(unZip_7z, &Process7zWorker::unZipFinished, this, &TianLiInstallationPackage::unZip_finished);
+
+			connect(this, &TianLiInstallationPackage::unZip,unZip_7z, &Process7zWorker::unzip);
 			
 			emit unZip();
 #else

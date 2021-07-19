@@ -3,10 +3,11 @@
 Process7zWorker::Process7zWorker(QObject *parent)
 	: QObject(parent)
 {
-	//unzipProcess = new QThread(parent);
-	//connect(this, &Process7zWorker::start, this, &Process7zWorker::unzip);
-	//this->moveToThread(unzipProcess);
-	//unzipProcess->start();
+	unzipProcess = new QThread;
+	moveToThread(unzipProcess);
+	unzipProcess->start();
+
+	connect(this, &Process7zWorker::start, this, &Process7zWorker::unzip);
 }
 
 Process7zWorker::~Process7zWorker()
@@ -84,9 +85,21 @@ void Process7zWorker::unzip()
 		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
 			break;
 		QString res(buffer);
-		res = res.section("%", -1);
+#if 0
+		QStringList  strs = res.split("%");
+		int unzipBarValue = 0;
+		if (strs.size()==1)
+		{
+			unzipBarValue = strs[0].toInt();
+		}
+		else
+		{
+			unzipBarValue = strs[strs.size()-2].toInt();
+		}
+#else
+		res = res.section("%", -2, -2);
 		int unzipBarValue = res.toInt();
-
+#endif
 		emit unZipProcess(unzipBarValue);
 	}
 	CloseHandle(hRead);
