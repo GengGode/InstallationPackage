@@ -507,7 +507,17 @@ void TianLiInstallationPackage::unZip_Error(int errorCode)
 
 void TianLiInstallationPackage::unZip_Process(int value)
 {
+#if 0
 	ui.ins_progressBar->setValue(value);
+#else
+	QPropertyAnimation *animation = new QPropertyAnimation(ui.ins_progressBar, "value");
+	animation->setDuration(300);
+	animation->setStartValue(ui.ins_progressBar->value());
+	animation->setEndValue(value);
+	animation->setEasingCurve(QEasingCurve::InOutQuad);
+	//animation->setEasingCurve(QEasingCurve::OutBack);
+	animation->start(QAbstractAnimation::DeleteWhenStopped);
+#endif
 }
 
 void TianLiInstallationPackage::unZip_finished()

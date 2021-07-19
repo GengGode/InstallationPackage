@@ -85,21 +85,10 @@ void Process7zWorker::unzip()
 		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
 			break;
 		QString res(buffer);
-#if 0
-		QStringList  strs = res.split("%");
-		int unzipBarValue = 0;
-		if (strs.size()==1)
-		{
-			unzipBarValue = strs[0].toInt();
-		}
-		else
-		{
-			unzipBarValue = strs[strs.size()-2].toInt();
-		}
-#else
+
 		res = res.section("%", -2, -2);
 		int unzipBarValue = res.toInt();
-#endif
+
 		emit unZipProcess(unzipBarValue);
 	}
 	CloseHandle(hRead);
