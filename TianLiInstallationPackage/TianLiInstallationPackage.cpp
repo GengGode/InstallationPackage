@@ -87,85 +87,6 @@ bool TianLiInstallationPackage::isCoundUn7z()
 	return true;
 }
 
-bool TianLiInstallationPackage::un7z()
-{
-	QString exe = QApplication::applicationDirPath() + "/7z.exe";
-
-	QDir dir;
-	if (!dir.exists(InstallPath + InstallDirName)) {
-		dir.mkpath(InstallPath + InstallDirName);
-	}
-
-	SECURITY_ATTRIBUTES sa;
-	HANDLE hRead, hWrite;
-	sa.nLength = sizeof(SECURITY_ATTRIBUTES);
-	sa.lpSecurityDescriptor = NULL;
-	sa.bInheritHandle = TRUE;
-	if (!CreatePipe(&hRead, &hWrite, &sa, 0))
-	{
-		return false;
-	}
-	QStringList args;
-	//args << "x" << SourcePath << "-o" + InstallPath + InstallDirName << "-aoa" << "-bt"<<"-bsp1";
-	//
-
-	wchar_t command[1024];
-	wchar_t exePath[256];
-	wchar_t sourcePath[256];
-	wchar_t installPath[256];
-
-	exe.fromWCharArray(exePath);
-	SourcePath.fromWCharArray(sourcePath);
-	(InstallPath + InstallDirName).fromWCharArray(installPath);
-
-	//swprintf_s(command, 1024, L"%s%s%s%s", exePath, L" x ", sourcePath, L"-o", installPath, L" -bt -aoa -bsp1");
-	swprintf_s(command,
-		1024,
-		L"%s%s%s%s%s%s", 
-		reinterpret_cast<const wchar_t *>(exe.utf16()),
-		L" x " ,
-		reinterpret_cast<const wchar_t *>(SourcePath.utf16()),
-		L" -o",
-		reinterpret_cast<const wchar_t *>((InstallPath + InstallDirName).utf16()),
-		L" -bt -aoa -bsp1");
-
-	STARTUPINFO si;
-	PROCESS_INFORMATION pi;
-	si.cb = sizeof(STARTUPINFO);
-	GetStartupInfo(&si);
-	si.hStdError = hWrite;            //把创建进程的标准错误输出重定向到管道输入
-	si.hStdOutput = hWrite;           //把创建进程的标准输出重定向到管道输入
-	si.wShowWindow = SW_HIDE;
-	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-	//关键步骤，CreateProcess函数参数意义请查阅MSDN
-	if (!CreateProcess(NULL, command, NULL, NULL, TRUE, NULL, NULL, NULL, &si, &pi))
-	{
-		CloseHandle(hWrite);
-		CloseHandle(hRead);
-		return FALSE;
-	}
-	CloseHandle(hWrite);
-	char buffer[4095] = { 0 };       //用4K的空间来存储输出的内容，只要不是显示文件内容，一般情况下是够用了。
-	DWORD bytesRead;
-	//FILE* pfile = fopen("c:/00.txt","w+");
-	while (true)
-	{
-		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
-			break;
-		QString res(buffer);
-		res = res.section("%", -1);
-		int unzipBarValue = res.toInt();
-		ui.ins_progressBar->setValue(unzipBarValue);
-
-	}
-	CloseHandle(hRead);
-
-	//unZip_finished(QProcess::NormalExit);
-	unZip_finished();
-
-	return true;
-}
-
 void TianLiInstallationPackage::ShowMask()
 {
 	if (MainMaskLabel == nullptr)
@@ -363,25 +284,8 @@ void TianLiInstallationPackage::Install()
 			ui.ins_progressBar->setValue(0);
 
 			//进度条
-#define Test
-#ifdef Test
-			
-#ifdef ClassThread
-			if (unZip_7z == nullptr)
-			{
-				unZip_7z = new Process7zWorker(this);
-			}
-			if (unzipProcess == nullptr)
-			{
-				unzipProcess = new QThread(this);
-			}
 
-			connect(this, &TianLiInstallationPackage::unZip, unZip_7z, &Process7zWorker::unzip);
-			unZip_7z->moveToThread(unzipProcess);
-			unzipProcess->start();
-#else
 			unZip_7z = new Process7zWorker(NULL);
-#endif
 			unZip_7z->setZipFilePath(SourcePath);
 			unZip_7z->setUnZipFilePath(InstallPath + InstallDirName);
 
@@ -392,9 +296,6 @@ void TianLiInstallationPackage::Install()
 			connect(this, &TianLiInstallationPackage::unZip,unZip_7z, &Process7zWorker::unzip);
 			
 			emit unZip();
-#else
-			un7z();
-#endif
 		}
 	}
 	else
@@ -405,7 +306,7 @@ void TianLiInstallationPackage::Install()
 
 void TianLiInstallationPackage::ShowLisence()
 {
-	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.site/docs/agreement.html")));
+	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.weixitianlizhi.ren/docs/agreement.html")));
 }
 
 void TianLiInstallationPackage::CustomSetChange()
@@ -421,14 +322,8 @@ void TianLiInstallationPackage::CustomSetChange()
 		animation->setDuration(100);
 		animation->setStartValue(this->geometry());
 		animation->setEndValue(QRect(this->x(), this->y(), 710, 400));
-#if 0
-		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
-		animation->start();
-#else
 		animation->setEasingCurve(QEasingCurve::InOutQuad);
-		//animation->setEasingCurve(QEasingCurve::OutBack);
 		animation->start(QAbstractAnimation::DeleteWhenStopped);
-#endif
 
 		isDownBar = false;
 	}
@@ -443,14 +338,9 @@ void TianLiInstallationPackage::CustomSetChange()
 		animation->setDuration(100);
 		animation->setStartValue(this->geometry());
 		animation->setEndValue(QRect(this->x(), this->y(), 710, 530));
-#if 0
-		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
-		animation->start();
-#else
 		animation->setEasingCurve(QEasingCurve::InOutQuad);
-		//animation->setEasingCurve(QEasingCurve::OutBack);
 		animation->start(QAbstractAnimation::DeleteWhenStopped);
-#endif
+
 		isDownBar = true;
 	}
 }

@@ -73,7 +73,6 @@ private:
 	void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 private:
 	bool isCoundUn7z();
-	bool un7z();
 	void ShowMask();
 	void HideMask();
 
