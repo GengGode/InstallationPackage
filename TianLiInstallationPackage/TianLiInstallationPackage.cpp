@@ -418,12 +418,17 @@ void TianLiInstallationPackage::CustomSetChange()
 		ui.label_Tag_Message->hide();
 
 		QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
 		animation->setDuration(100);
 		animation->setStartValue(this->geometry());
 		animation->setEndValue(QRect(this->x(), this->y(), 710, 400));
-
+#if 0
+		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
 		animation->start();
+#else
+		animation->setEasingCurve(QEasingCurve::InOutQuad);
+		//animation->setEasingCurve(QEasingCurve::OutBack);
+		animation->start(QAbstractAnimation::DeleteWhenStopped);
+#endif
 
 		isDownBar = false;
 	}
@@ -435,13 +440,17 @@ void TianLiInstallationPackage::CustomSetChange()
 		ui.label_Tag_Message->show();
 
 		QPropertyAnimation *animation = new QPropertyAnimation(this, "geometry");
-		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
 		animation->setDuration(100);
 		animation->setStartValue(this->geometry());
 		animation->setEndValue(QRect(this->x(), this->y(), 710, 530));
-
+#if 0
+		connect(animation, &QPropertyAnimation::finished, animation, &QPropertyAnimation::deleteLater);
 		animation->start();
-
+#else
+		animation->setEasingCurve(QEasingCurve::InOutQuad);
+		//animation->setEasingCurve(QEasingCurve::OutBack);
+		animation->start(QAbstractAnimation::DeleteWhenStopped);
+#endif
 		isDownBar = true;
 	}
 }
@@ -507,9 +516,6 @@ void TianLiInstallationPackage::unZip_Error(int errorCode)
 
 void TianLiInstallationPackage::unZip_Process(int value)
 {
-#if 0
-	ui.ins_progressBar->setValue(value);
-#else
 	QPropertyAnimation *animation = new QPropertyAnimation(ui.ins_progressBar, "value");
 	animation->setDuration(300);
 	animation->setStartValue(ui.ins_progressBar->value());
@@ -517,7 +523,6 @@ void TianLiInstallationPackage::unZip_Process(int value)
 	animation->setEasingCurve(QEasingCurve::InOutQuad);
 	//animation->setEasingCurve(QEasingCurve::OutBack);
 	animation->start(QAbstractAnimation::DeleteWhenStopped);
-#endif
 }
 
 void TianLiInstallationPackage::unZip_finished()
