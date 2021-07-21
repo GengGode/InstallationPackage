@@ -41,7 +41,7 @@ private:
 
 private:
 	QString SourcePath;
-	QString SourceName = "/Source.7z";
+	QString SourceName = "/Source.Zip";
 	QString LinkerName = "空荧酒馆原神地图";
 	QString ExportName = "/map.exe";
 #ifdef _DEBUG
