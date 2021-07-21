@@ -395,10 +395,12 @@ void TianLiInstallationPackage::unZip_Error(int errorCode)
 	}
 	case 1:
 	{
+		ShowMessageLabel(ShowTextStr6);
 		break;
 	}
 	case 2:
 	{
+		ShowMessageLabel(ShowTextStr7);
 		break;
 	}
 	}
