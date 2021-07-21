@@ -62,7 +62,8 @@ private:
 	QString ShowTextStr3 = "无效路径";
 	QString ShowTextStr4 = "未能找到解压模块";
 	QString ShowTextStr5 = "资源缺失";
-
+	QString ShowTextStr6 = "无法开始解压";
+	QString ShowTextStr7 = "解压失败";
 private:
 	QPoint m_Press;
 	QPoint m_Move;
