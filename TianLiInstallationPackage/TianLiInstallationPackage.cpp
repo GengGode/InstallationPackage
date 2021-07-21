@@ -120,7 +120,7 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 	if (GetDiskFreeSpaceEx(lpcwstrDriver, &liFreeBytesAvailable, &liTotalBytes, &liTotalFreeBytes))
 	{
 		quint64 size = (quint64)liTotalFreeBytes.QuadPart / 1024 / 1024;
-		if (size < 168)
+		if (size < Size+1)
 		{
 			//kongjianbuzu
 			isValidPath = false;
