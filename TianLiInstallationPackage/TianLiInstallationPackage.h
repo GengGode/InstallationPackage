@@ -45,7 +45,7 @@ private:
 	QString LinkerName = "天理";
 	QString ExportName = "/天理系统.exe";
 #ifdef _DEBUG
-	QString InstallPath = "E:/tmp/launcher";//"C:/Program Files";
+	QString InstallPath = "C:/Program Files";// "E:/tmp/launcher";//"C:/Program Files";
 #else
 	QString InstallPath = "C:/Program Files";
 #endif
