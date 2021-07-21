@@ -120,7 +120,7 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 	if (GetDiskFreeSpaceEx(lpcwstrDriver, &liFreeBytesAvailable, &liTotalBytes, &liTotalFreeBytes))
 	{
 		quint64 size = (quint64)liTotalFreeBytes.QuadPart / 1024 / 1024;
-		if (size < 300)
+		if (size < 168)
 		{
 			//kongjianbuzu
 			isValidPath = false;
@@ -306,7 +306,7 @@ void TianLiInstallationPackage::Install()
 
 void TianLiInstallationPackage::ShowLisence()
 {
-	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.weixitianlizhi.ren/docs/agreement.html")));
+	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.site/docs/disclaimer.html")));
 }
 
 void TianLiInstallationPackage::CustomSetChange()
@@ -395,10 +395,12 @@ void TianLiInstallationPackage::unZip_Error(int errorCode)
 	}
 	case 1:
 	{
+		ShowMessageLabel(ShowTextStr6);
 		break;
 	}
 	case 2:
 	{
+		ShowMessageLabel(ShowTextStr7);
 		break;
 	}
 	}

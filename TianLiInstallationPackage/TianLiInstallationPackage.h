@@ -41,26 +41,28 @@ private:
 
 private:
 	QString SourcePath;
-	QString SourceName= "/source.7z";
-	QString LinkerName = "天理";
-	QString ExportName = "/天理系统.exe";
+	QString SourceName= "/Source.7z";
+	QString LinkerName = "空荧酒馆原神地图";
+	QString ExportName = "/map.exe";
 #ifdef _DEBUG
-	QString InstallPath = "E:/tmp/launcher";//"C:/Program Files";
+	QString InstallPath = "C:/Program Files";
 #else
 	QString InstallPath = "C:/Program Files";
 #endif
-	QString InstallDirName = "/天理";
+	QString InstallDirName = "/空荧酒馆原神地图";
 
 	Process7zWorker *unZip_7z = nullptr;
 	QThread *unzipProcess = nullptr;
 private:
-	QString TextStr0 = "300MB";
+	QString TextStr0 = "167MB";
 	QString ShowTextStr0 = "是否退出安装";
 	QString ShowTextStr1 = "需要同意许可协议";
 	QString ShowTextStr2 = "空间不足";
 	QString ShowTextStr3 = "无效路径";
 	QString ShowTextStr4 = "未能找到解压模块";
 	QString ShowTextStr5 = "资源缺失";
+	QString ShowTextStr6 = "无法开始解压";
+	QString ShowTextStr7 = "解压失败";
 
 private:
 	QPoint m_Press;

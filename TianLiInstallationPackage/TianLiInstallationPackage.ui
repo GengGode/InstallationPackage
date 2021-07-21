@@ -154,7 +154,7 @@ font-size:14px;
 }</string>
     </property>
     <property name="text">
-     <string>《软件免责协议》</string>
+     <string>《软件用户协议》</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_Bg_TopRect">
