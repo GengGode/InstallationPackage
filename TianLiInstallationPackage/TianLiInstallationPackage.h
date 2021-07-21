@@ -41,15 +41,15 @@ private:
 
 private:
 	QString SourcePath;
-	QString SourceName= "/source.7z";
-	QString LinkerName = "天理";
-	QString ExportName = "/天理系统.exe";
+	QString SourceName = "/Source.7z";
+	QString LinkerName = "空荧酒馆原神地图";
+	QString ExportName = "/map.exe";
 #ifdef _DEBUG
-	QString InstallPath = "E:/tmp/launcher";//"C:/Program Files";
+	QString InstallPath = "C:/Program Files";
 #else
 	QString InstallPath = "C:/Program Files";
 #endif
-	QString InstallDirName = "/天理";
+	QString InstallDirName = "/空荧酒馆原神地图";
 
 	Process7zWorker *unZip_7z = nullptr;
 	QThread *unzipProcess = nullptr;
