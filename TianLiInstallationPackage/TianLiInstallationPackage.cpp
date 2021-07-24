@@ -38,6 +38,8 @@ TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
 	connect(ui.pushButton_ChangePath, SIGNAL(clicked()), this, SLOT(ChangePathBox()));
 	connect(ui.pushButton_ShowLisence, SIGNAL(clicked()), this, SLOT(ShowLisence()));
 	connect(ui.lineEdit_Path, SIGNAL(textChanged(QString)), this, SLOT(PathChanged(QString)));
+	
+	ui.lineEdit_Path->textChanged(InstallPath);
 
 	connect(ui.end_pushButton_Start, SIGNAL(clicked()), this, SLOT(Start()));
 }
@@ -306,7 +308,7 @@ void TianLiInstallationPackage::Install()
 
 void TianLiInstallationPackage::ShowLisence()
 {
-	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.weixitianlizhi.ren/docs/agreement.html")));
+	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.site/docs/agreement.html")));
 }
 
 void TianLiInstallationPackage::CustomSetChange()

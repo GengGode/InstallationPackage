@@ -1,9 +1,11 @@
 #pragma once
 
 #include <QDir>
+#include <QRegExp>
 #include <QObject>
 #include <QThread>
 #include <QApplication>
+#include <QRegularExpression>
 #include <Windows.h>
 
 class Process7zWorker : public QObject

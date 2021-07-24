@@ -45,7 +45,7 @@ private:
 	QString LinkerName = "空荧酒馆原神地图";
 	QString ExportName = "/map.exe";
 #ifdef _DEBUG
-	QString InstallPath = "C:/Program Files";
+	QString InstallPath = "E:/tmp";
 #else
 	QString InstallPath = "C:/Program Files";
 #endif
