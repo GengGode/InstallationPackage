@@ -54,7 +54,7 @@ private:
 	Process7zWorker *unZip_7z = nullptr;
 	QThread *unzipProcess = nullptr;
 private:
-	int Size = 300;
+	int Size = 223;
 	QString TextStr0 = QString::number(Size) + "MB";
 	QString ShowTextStr0 = "是否退出安装";
 	QString ShowTextStr1 = "需要同意许可协议";

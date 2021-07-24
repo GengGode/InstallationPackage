@@ -80,19 +80,40 @@ void Process7zWorker::unzip()
 	char buffer[4095] = { 0 };       //用4K的空间来存储输出的内容，只要不是显示文件内容，一般情况下是够用了。
 	DWORD bytesRead;
 
+	QString res;
 	while (true)
 	{
 		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
 			break;
-		QString res(buffer);
+		QString resStr(buffer);
+		//正则表达式1(1[0-9]{2}%)|([1-9][O-9]%)|([O-9]%)/
+				//res = resStr.section(QRegularExpression("^\\d{1,3}%$", QRegularExpression::MultilineOption), -1);
+				//res = resStr.section("\%",-2);
 
-		res = res.section("%", -2, -2);
-		int unzipBarValue = res.toInt();
+				//QRegularExpression re= QRegularExpression("^(\\d{1,3})%$", QRegularExpression::MultilineOption);
+				//QRegularExpressionMatch matchRes=re.match(resStr);
+				//res = matchRes.captured(0);
 
-		emit unZipProcess(unzipBarValue);
+		QRegExp rx(R"(\r\n(\d+)%)");
+		int pos = 0;
+		while ((pos = rx.indexIn(resStr, pos)) != -1) {
+			//qDebug() << rx.capturedTexts().at(0);
+			//
+			res = rx.capturedTexts().at(1);
+			int unzipBarValue = res.toInt();
+
+			emit unZipProcess(unzipBarValue);
+
+			if (unzipBarValue == 100)
+			{
+				break;
+			}
+			pos += rx.matchedLength();
+			Sleep(20);
+		}
+
+
 	}
-	emit unZipProcess(100);
-
 	CloseHandle(hRead);
 
 	emit unZipFinished();

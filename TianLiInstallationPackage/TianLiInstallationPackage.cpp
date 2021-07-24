@@ -39,6 +39,8 @@ TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
 	connect(ui.pushButton_ShowLisence, SIGNAL(clicked()), this, SLOT(ShowLisence()));
 	connect(ui.lineEdit_Path, SIGNAL(textChanged(QString)), this, SLOT(PathChanged(QString)));
 
+	ui.lineEdit_Path->textChanged(InstallPath);
+
 	connect(ui.end_pushButton_Start, SIGNAL(clicked()), this, SLOT(Start()));
 }
 
