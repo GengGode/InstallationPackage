@@ -50,6 +50,7 @@ private:
 	QString InstallPath = "C:/Program Files";
 #endif
 	QString InstallDirName = "/天理";
+	QString Url_Agreement = "https://yuanshen.weixitianlizhi.ren/";
 
 	Process7zWorker *unZip_7z = nullptr;
 	QThread *unzipProcess = nullptr;

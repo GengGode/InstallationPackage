@@ -308,7 +308,7 @@ void TianLiInstallationPackage::Install()
 
 void TianLiInstallationPackage::ShowLisence()
 {
-	QDesktopServices::openUrl(QUrl(QLatin1String("https://yuanshen.site/docs/disclaimer.html")));
+	QDesktopServices::openUrl(QUrl(Url_Agreement));
 }
 
 void TianLiInstallationPackage::CustomSetChange()
