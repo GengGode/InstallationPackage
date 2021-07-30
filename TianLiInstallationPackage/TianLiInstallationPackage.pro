@@ -13,12 +13,14 @@ MOC_DIR += .
 OBJECTS_DIR += release
 UI_DIR += .
 RCC_DIR += .
-RC_FILE = TianLiInstallationPackage.rc
+win32:RC_FILE = TianLiInstallationPackage.rc
 HEADERS += ./resource.h \
     ./TianLiInstallationPackage.h \
     ./QtWidgetsMessageBox.h \
-    ./QtWidgetsMessageBox2.h
-SOURCES += ./QtWidgetsMessageBox.cpp \
+    ./QtWidgetsMessageBox2.h \
+    ./Process7zWorker.h
+SOURCES += ./Process7zWorker.cpp \
+    ./QtWidgetsMessageBox.cpp \
     ./QtWidgetsMessageBox2.cpp \
     ./TianLiInstallationPackage.cpp \
     ./main.cpp
@@ -27,4 +29,3 @@ FORMS += ./QtWidgetsMessageBox.ui \
     ./TianLiInstallationPackage.ui
 RESOURCES += QtWidgetsMessageBox.qrc \
     TianLiInstallationPackage.qrc
-msvc:QMAKE_CXXFLAGS += -execution-charset:utf-8
