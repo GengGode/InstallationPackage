@@ -43,7 +43,7 @@ private:
 	QString SourcePath;
 	QString SourceName = "/source.7z";
 	QString LinkerName = "天理";
-	QString ExportName = "/天理系统.exe";
+	QString ExportName = "/TianLi_Launcher.exe";
 #ifdef _DEBUG
 	QString InstallPath = "C:/Program Files";// "E:/tmp/launcher";//"C:/Program Files";
 #else

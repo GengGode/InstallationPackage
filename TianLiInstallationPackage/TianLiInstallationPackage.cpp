@@ -1,4 +1,4 @@
-#include "TianLiInstallationPackage.h"
+ï»¿#include "TianLiInstallationPackage.h"
 #pragma execution_character_set("utf-8")
 
 TianLiInstallationPackage::TianLiInstallationPackage(QWidget *parent)
@@ -76,14 +76,14 @@ bool TianLiInstallationPackage::isCoundUn7z()
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
 	if (QDir().exists(exe) == false)
 	{
-		ShowMessageBox(ShowTextStr4);//Î´ÄÜÕÒµ½½âÑ¹Ä£¿é
+		ShowMessageBox(ShowTextStr4);//æœªèƒ½æ‰¾åˆ°è§£å‹æ¨¡å—
 		return false;
 	}
 
 	SourcePath = QApplication::applicationDirPath() + SourceName;
 	if (QDir().exists(SourcePath) == false)
 	{
-		ShowMessageBox(ShowTextStr5);//×ÊÔ´È±Ê§
+		ShowMessageBox(ShowTextStr5);//èµ„æºç¼ºå¤±
 		return false;
 	}
 	return true;
@@ -127,25 +127,25 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 			//kongjianbuzu
 			isValidPath = false;
 			ShowMessageLabel(ShowTextStr2);
-			ui.label_Tag_Message->setText("ËùĞè¿Õ¼ä£º" + TextStr0 + "       ¿ÉÓÃ¿Õ¼ä£º" + QString::number(size) + "MB");
+			ui.label_Tag_Message->setText("æ‰€éœ€ç©ºé—´ï¼š" + TextStr0 + "       " + "å¯ç”¨ç©ºé—´ï¼š" + QString::number(size) + "MB");
 		}
 		else if (size < 1024)
 		{
 			isValidPath = true;
 			HideMessageLabel();
-			ui.label_Tag_Message->setText("ËùĞè¿Õ¼ä£º" + TextStr0 + "       ¿ÉÓÃ¿Õ¼ä£º" + QString::number(size) + "MB");
+			ui.label_Tag_Message->setText("æ‰€éœ€ç©ºé—´ï¼š" + TextStr0 + "       "+"å¯ç”¨ç©ºé—´ï¼š" + QString::number(size) + "MB");
 		}
 		else
 		{
 			isValidPath = true;
 			size = size / 1024;
 			HideMessageLabel();
-			ui.label_Tag_Message->setText("ËùĞè¿Õ¼ä£º" + TextStr0 + "       ¿ÉÓÃ¿Õ¼ä£º" + QString::number(size) + "GB");
+			ui.label_Tag_Message->setText("æ‰€éœ€ç©ºé—´ï¼š" + TextStr0 + "       " + "å¯ç”¨ç©ºé—´ï¼š" + QString::number(size) + "GB");
 		}
 	}
 	else
 	{
-		// ÎŞĞ§Â·¾¶
+		// æ— æ•ˆè·¯å¾„
 		isValidPath = false;
 		ShowMessageLabel(ShowTextStr3);
 	}
@@ -191,9 +191,9 @@ void TianLiInstallationPackage::ShowMessageLabel(QString text)
 		ErrorMessageLabel = new QLabel(this);
 		ErrorMessageLabel->setText(text);
 		ErrorMessageLabel->setGeometry(603, 424, 79, 24);
-		ErrorMessageLabel->setFont(QFont("Î¢ÈíÑÅºÚ"));
+		ErrorMessageLabel->setFont(QFont("å¾®è½¯é›…é»‘"));
 		ErrorMessageLabel->setAlignment(Qt::AlignCenter);
-		ErrorMessageLabel->setStyleSheet("QLabel{background:rgb(255,0,0);font:\"Î¢ÈíÑÅºÚ\";font-size:14px;color:rbg(255,255,255);}");
+		ErrorMessageLabel->setStyleSheet("QLabel{background:rgb(255,0,0);font:\"å¾®è½¯é›…é»‘\";font-size:14px;color:rbg(255,255,255);}");
 		ErrorMessageLabel->show();
 	}
 	else
@@ -264,7 +264,7 @@ void TianLiInstallationPackage::Install()
 		}
 		if (isCoundUn7z())
 		{
-			//ÇĞ»»UI
+			//åˆ‡æ¢UI
 			ui.label_Tag->hide();
 			ui.lineEdit_Path->hide();
 			ui.pushButton_ChangePath->hide();
@@ -280,16 +280,16 @@ void TianLiInstallationPackage::Install()
 			ui.pushButton_Custom->hide();
 
 			ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/TianLiInstallationPackage/Resource/bg2.png)}");
-			//ÏÔÊ¾°²×°ÖĞUI
+			//æ˜¾ç¤ºå®‰è£…ä¸­UI
 			ui.ins_label->show();
 			ui.ins_progressBar->show();
 			ui.ins_progressBar->setValue(0);
 
-			//½ø¶ÈÌõ
+			//è¿›åº¦æ¡
 
 			unZip_7z = new Process7zWorker(NULL);
-			unZip_7z->setZipFilePath(SourcePath);
-			unZip_7z->setUnZipFilePath(InstallPath + InstallDirName);
+			unZip_7z->setZipFilePath("\"" + SourcePath + "\"");
+			unZip_7z->setUnZipFilePath("\"" + InstallPath + InstallDirName + "\"");
 
 			connect(unZip_7z, &Process7zWorker::unZipError, this, &TianLiInstallationPackage::unZip_Error);
 			connect(unZip_7z, &Process7zWorker::unZipProcess, this, &TianLiInstallationPackage::unZip_Process);
@@ -302,7 +302,7 @@ void TianLiInstallationPackage::Install()
 	}
 	else
 	{
-		ShowMessageBox(ShowTextStr1);//ĞèÒªÍ¬ÒâĞí¿ÉĞ­Òé
+		ShowMessageBox(ShowTextStr1);//éœ€è¦åŒæ„è®¸å¯åè®®
 	}
 }
 
@@ -350,7 +350,7 @@ void TianLiInstallationPackage::CustomSetChange()
 void TianLiInstallationPackage::ChangePathBox()
 {
 	ShowMask();
-	QString Path = QFileDialog::getExistingDirectory(this, "Ñ¡Ôñ°²×°Ä¿Â¼", InstallPath, QFileDialog::ShowDirsOnly);
+	QString Path = QFileDialog::getExistingDirectory(this, "é€‰æ‹©å®‰è£…ç›®å½•", InstallPath, QFileDialog::ShowDirsOnly);
 	if (!Path.isEmpty())
 	{
 		InstallPath = Path;
@@ -367,7 +367,7 @@ void TianLiInstallationPackage::PathChanged(QString path)
 
 void TianLiInstallationPackage::Start()
 {
-	QString command = InstallPath + InstallDirName + ExportName;
+	QString command = "\"" + InstallPath + InstallDirName + ExportName + "\"";
 	TCHAR szCmdLine[1024] = {};
 
 	command.toWCharArray(szCmdLine);
@@ -424,11 +424,11 @@ void TianLiInstallationPackage::unZip_finished()
 	CreateLinke();
 
 	isInstallFinish = true;
-	//Òş²Ø°²×°ÖĞUI
+	//éšè—å®‰è£…ä¸­UI
 	ui.ins_label->hide();
 	ui.ins_progressBar->hide();
 
-	//ÏÔÊ¾°²×°½áÊøUI
+	//æ˜¾ç¤ºå®‰è£…ç»“æŸUI
 	ui.end_pushButton_Start->show();
 	ui.end_radioButton->show();
 	ui.label_Bg_TopRect->setStyleSheet("QLabel{background-image:url(:/TianLiInstallationPackage/Resource/bg.png)}");

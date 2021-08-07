@@ -73,7 +73,7 @@ font-size:18px;
 }</string>
    </property>
    <property name="text">
-    <string>请先阅读并勾选软件许可协议。</string>
+    <string>更新未完成，是否继续退出？</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignHCenter|Qt::AlignTop</set>

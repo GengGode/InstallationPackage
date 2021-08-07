@@ -28,6 +28,7 @@ void Process7zWorker::setUnZipFilePath(QString unZipFile)
 void Process7zWorker::unzip()
 {
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
+	exe = "\"" + exe + "\"";
 
 	QDir dir;
 	if (!dir.exists(unZipFilePath)) {
@@ -49,13 +50,13 @@ void Process7zWorker::unzip()
 	wchar_t command[1024];
 	swprintf_s(command,
 		1024,
-		L"\"%s%s%s%s%s%s",
+		L"%s%s%s%s%s%s",
 		reinterpret_cast<const wchar_t *>(exe.utf16()),
-		L"\" x \"",
+		L" x ",
 		reinterpret_cast<const wchar_t *>(zipFilePath.utf16()),
-		L"\" -o\"",
+		L" -o",
 		reinterpret_cast<const wchar_t *>(unZipFilePath.utf16()),
-		L"\" -bt -aoa -bsp1");
+		L" -bt -aoa -bsp1");
 
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;
@@ -79,41 +80,21 @@ void Process7zWorker::unzip()
 	CloseHandle(hWrite);
 	char buffer[4095] = { 0 };       //用4K的空间来存储输出的内容，只要不是显示文件内容，一般情况下是够用了。
 	DWORD bytesRead;
-
-	QString res;
+	int k = 0;
 	while (true)
 	{
 		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
 			break;
-		QString resStr(buffer);
-		//正则表达式1(1[0-9]{2}%)|([1-9][O-9]%)|([O-9]%)/
-				//res = resStr.section(QRegularExpression("^\\d{1,3}%$", QRegularExpression::MultilineOption), -1);
-				//res = resStr.section("\%",-2);
+		QString res(buffer);
 
-				//QRegularExpression re= QRegularExpression("^(\\d{1,3})%$", QRegularExpression::MultilineOption);
-				//QRegularExpressionMatch matchRes=re.match(resStr);
-				//res = matchRes.captured(0);
-
-		QRegExp rx(R"(\r\n(\d+)%)");
-		int pos = 0;
-		while ((pos = rx.indexIn(resStr, pos)) != -1) {
-			//qDebug() << rx.capturedTexts().at(0);
-			//
-			res = rx.capturedTexts().at(1);
-			int unzipBarValue = res.toInt();
-
-			emit unZipProcess(unzipBarValue);
-
-			if (unzipBarValue == 100)
-			{
-				break;
-			}
-			pos += rx.matchedLength();
-			Sleep(20);
-		}
-
-
+		res = res.section("%", -2, -2);
+		int unzipBarValue = res.toInt();
+		k++;
+		Sleep(100);
+		emit unZipProcess(unzipBarValue + k);
 	}
+	emit unZipProcess(100);
+	Sleep(100);
 	CloseHandle(hRead);
 
 	emit unZipFinished();
