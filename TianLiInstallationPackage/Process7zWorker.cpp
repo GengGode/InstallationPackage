@@ -28,7 +28,6 @@ void Process7zWorker::setUnZipFilePath(QString unZipFile)
 void Process7zWorker::unzip()
 {
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
-	exe = "\"" + exe + "\"";
 
 	QDir dir;
 	if (!dir.exists(unZipFilePath)) {
@@ -50,13 +49,13 @@ void Process7zWorker::unzip()
 	wchar_t command[1024];
 	swprintf_s(command,
 		1024,
-		L"%s%s%s%s%s%s",
+		L"\"%s%s%s%s%s%s",
 		reinterpret_cast<const wchar_t *>(exe.utf16()),
-		L" x ",
+		L"\" x \"",
 		reinterpret_cast<const wchar_t *>(zipFilePath.utf16()),
-		L" -o",
+		L"\" -o\"",
 		reinterpret_cast<const wchar_t *>(unZipFilePath.utf16()),
-		L" -bt -aoa -bsp1");
+		L"\" -bt -aoa -bsp1");
 
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;

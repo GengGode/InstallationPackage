@@ -132,12 +132,14 @@ bool TianLiInstallationPackage::CheckInstallPath(QString path)
 		else if (size < 1024)
 		{
 			isValidPath = true;
+			InstallIndexPath = path;
 			HideMessageLabel();
 			ui.label_Tag_Message->setText("所需空间：" + TextStr0 + "       "+"可用空间：" + QString::number(size) + "MB");
 		}
 		else
 		{
 			isValidPath = true;
+			InstallIndexPath = path;
 			size = size / 1024;
 			HideMessageLabel();
 			ui.label_Tag_Message->setText("所需空间：" + TextStr0 + "       " + "可用空间：" + QString::number(size) + "GB");
@@ -288,8 +290,8 @@ void TianLiInstallationPackage::Install()
 			//进度条
 
 			unZip_7z = new Process7zWorker(NULL);
-			unZip_7z->setZipFilePath("\"" + SourcePath + "\"");
-			unZip_7z->setUnZipFilePath("\"" + InstallPath + InstallDirName + "\"");
+			unZip_7z->setZipFilePath(SourcePath);
+			unZip_7z->setUnZipFilePath(InstallIndexPath);
 
 			connect(unZip_7z, &Process7zWorker::unZipError, this, &TianLiInstallationPackage::unZip_Error);
 			connect(unZip_7z, &Process7zWorker::unZipProcess, this, &TianLiInstallationPackage::unZip_Process);

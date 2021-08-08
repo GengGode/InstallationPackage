@@ -47,6 +47,7 @@ private:
 #ifdef _DEBUG
 	QString InstallPath = "C:/Program Files";// "E:/tmp/launcher";//"C:/Program Files";
 #else
+	QString InstallIndexPath = "C:/Program Files";
 	QString InstallPath = "C:/Program Files";
 #endif
 	QString InstallDirName = "/天理";
