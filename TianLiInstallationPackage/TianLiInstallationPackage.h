@@ -50,7 +50,7 @@ private:
 	QString InstallPath = "C:/Program Files";
 #endif
 	QString InstallDirName = "/空荧酒馆原神地图";
-	QString Url_Agreement = "https://yuanshen.weixitianlizhi.ren/";
+	QString Url_Agreement = "https://yuanshen.site/docs/agreement.html";
 
 	Process7zWorker *unZip_7z = nullptr;
 	QThread *unzipProcess = nullptr;

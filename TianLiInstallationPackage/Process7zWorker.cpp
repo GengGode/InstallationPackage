@@ -28,7 +28,7 @@ void Process7zWorker::setUnZipFilePath(QString unZipFile)
 void Process7zWorker::unzip()
 {
 	QString exe = QApplication::applicationDirPath() + "/7z.exe";
-	exe = "\"" + exe + "\"";
+	//exe = "\"" + exe + "\"";
 
 	QDir dir;
 	if (!dir.exists(unZipFilePath)) {
@@ -46,6 +46,8 @@ void Process7zWorker::unzip()
 		emit unZipFinished();
 		return;
 	}
+	//zipFilePath = "\"" + zipFilePath + "\"";
+	//unZipFilePath = "\"" + unZipFilePath + "\"";
 
 	wchar_t command[1024];
 	swprintf_s(command,
