@@ -45,16 +45,17 @@ private:
 	QString LinkerName = "空荧酒馆原神地图";
 	QString ExportName = "/map.exe";
 #ifdef _DEBUG
-	QString InstallPath = "E:/tmp";
+	QString InstallPath = "C:/Program Files";// "E:/tmp/launcher";//"C:/Program Files";
 #else
 	QString InstallPath = "C:/Program Files";
 #endif
 	QString InstallDirName = "/空荧酒馆原神地图";
+	QString Url_Agreement = "https://yuanshen.weixitianlizhi.ren/";
 
 	Process7zWorker *unZip_7z = nullptr;
 	QThread *unzipProcess = nullptr;
 private:
-	int Size = 167;
+	int Size = 254;
 	QString TextStr0 = QString::number(Size) + "MB";
 	QString ShowTextStr0 = "是否退出安装";
 	QString ShowTextStr1 = "需要同意许可协议";
@@ -64,6 +65,7 @@ private:
 	QString ShowTextStr5 = "资源缺失";
 	QString ShowTextStr6 = "无法开始解压";
 	QString ShowTextStr7 = "解压失败";
+
 private:
 	QPoint m_Press;
 	QPoint m_Move;
