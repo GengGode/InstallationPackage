@@ -116,6 +116,7 @@ void TianLiInstallationPackage::HideMask()
 
 bool TianLiInstallationPackage::CheckInstallPath(QString path)
 {
+	path.replace("\\", "/");
 	QString driver = path.section(":/", 0, 0) + ":/";
 	LPCWSTR lpcwstrDriver = (LPCWSTR)driver.utf16();
 	ULARGE_INTEGER liFreeBytesAvailable, liTotalBytes, liTotalFreeBytes;
