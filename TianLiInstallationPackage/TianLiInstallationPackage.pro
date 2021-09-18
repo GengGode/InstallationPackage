@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 QT += core widgets 
 TEMPLATE = app
-TARGET = TianLi_setup
+TARGET = TianLiLauncher_setup
 DESTDIR = ../x64/Release
 CONFIG += release
 LIBS += -L"." \
