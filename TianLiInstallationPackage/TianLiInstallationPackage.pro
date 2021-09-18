@@ -4,6 +4,7 @@
 QT += core widgets 
 TEMPLATE = app
 TARGET = TianLiLauncher_setup
+QMAKE_LFLAGS += /MANIFESTUAC:\"level=\'requireAdministrator\' uiAccess=\'false\'\"
 DESTDIR = ../x64/Release
 CONFIG += release
 LIBS += -L"." \
