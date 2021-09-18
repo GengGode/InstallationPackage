@@ -46,6 +46,10 @@ void Process7zWorker::unzip()
 		return;
 	}
 
+	exe.replace("/", "\\");
+	zipFilePath.replace("/", "\\");
+	unZipFilePath.replace("/", "\\");
+
 	wchar_t command[1024];
 	swprintf_s(command,
 		1024,
@@ -68,7 +72,7 @@ void Process7zWorker::unzip()
 	si.wShowWindow = SW_HIDE;
 	si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
 
-	if (!CreateProcess(NULL, command, NULL, NULL, TRUE, NULL, NULL, NULL, &si, &pi))
+	if (!CreateProcess(NULL, command, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi))
 	{
 		CloseHandle(hWrite);
 		CloseHandle(hRead);
@@ -80,12 +84,13 @@ void Process7zWorker::unzip()
 	char buffer[4095] = { 0 };       //用4K的空间来存储输出的内容，只要不是显示文件内容，一般情况下是够用了。
 	DWORD bytesRead;
 	int k = 0;
+	QString str;
 	while (true)
 	{
 		if (ReadFile(hRead, buffer, 4095, &bytesRead, NULL) == NULL)
 			break;
 		QString res(buffer);
-
+		str.append(res);
 		res = res.section("%", -2, -2);
 		int unzipBarValue = res.toInt();
 		k++;

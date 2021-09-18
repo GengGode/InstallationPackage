@@ -45,6 +45,7 @@ private:
 	QString LinkerName = "天理";
 	QString ExportName = "/TianLi_Launcher.exe";
 #ifdef _DEBUG
+	QString InstallIndexPath = "C:/Program Files";
 	QString InstallPath = "C:/Program Files";// "E:/tmp/launcher";//"C:/Program Files";
 #else
 	QString InstallIndexPath = "C:/Program Files";
